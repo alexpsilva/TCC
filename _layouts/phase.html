@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<h1>I'm the '{{ page.name }}'</h1>
+<h2>{{ page.description }}</h2>
+
+<h2>I have these activities:</h2>
+
+{% assign filtered_activities = site.activities | where: "phase", page.pk %}
+{% for a in filtered_activities %}
+  <h2>
+    <a href="{{ a.url }}">
+      {{ a.name }}
+    </a>
+  </h2>
+{% endfor %}
+
+<h2>I'm also part of the <a href="/process/{{ page.process }}.html">{{ page.process }}</a> process btw</h2>

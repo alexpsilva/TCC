@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<h1>I'm the '{{ page.name }}' process</h1>
+<h2>{{ page.description }}</h2>
+
+<h2>I have these phases:</h2>
+
+{% assign filtered_phases = site.phases | where: "process", page.pk %}
+{% for a in filtered_phases %}
+  <h2>
+    <a href="{{ a.url }}">
+      {{ a.name }}
+    </a>
+  </h2>
+{% endfor %}
