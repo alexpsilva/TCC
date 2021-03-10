@@ -2,8 +2,10 @@
 layout: default
 ---
 
-<h1>I'm the '{{ page.name }}' activity</h1>
+<h1>I'm the '{{ page.guidelines | join : ","}}' activity</h1>
 <h2>{{ page.description }}</h2>
+
+<a href="/guidelines?filter={{ page.guidelines | join : ','}}">
 
 <h2>I have these activities:</h2>
 
