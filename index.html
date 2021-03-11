@@ -5,12 +5,85 @@
 layout: default
 ---
 
-<h2>These are all the process:</h2>
+<div class="container">
+  <div>
+    {% for p in site.process %}
+    <h2>{{ p.name }}</h2>
 
-{% for p in site.process %}
-  <h2>
-    <a href="{{ p.url }}">
-      {{ p.name }}
-    </a>
-  </h2>
-{% endfor %}
+    <h2>
+      <a href="{{ p.url }}">
+        {{ p.description }}
+      </a>
+    </h2>
+    {% endfor %}
+  </div>
+  <div id="index-menu">
+
+    <div class="index-card">
+      <a href="http://justinfarrow.com">
+        <i class="fa fa-calendar fa-2x"></i>
+        <span class="nav-text">
+          Phases
+        </span>
+      </a>
+    </div>
+    <div class="index-card">
+      <a href="#">
+        <i class="fa fa-bolt fa-2x"></i>
+        <span class="nav-text">
+          Activities
+        </span>
+      </a>
+    </div>
+    <div class="index-card">
+      <a href="#">
+        <i class="fa fa-trophy fa-2x"></i>
+        <span class="nav-text">
+          Artifacts
+        </span>
+      </a>
+    </div>
+    <div class="index-card">
+      <a href="#">
+        <i class="fa fa-gavel fa-2x"></i>
+        <span class="nav-text">
+          Tools
+        </span>
+      </a>
+    </div>
+    <div class="index-card">
+      <a href="#">
+        <i class="fa fa-list-ol fa-2x"></i>
+        <span class="nav-text">
+          Guidelines
+        </span>
+      </a>
+    </div>
+    <div class="index-card" v>
+      <a href="#">
+        <i class="fa fa-user fa-2x"></i>
+        <span class="nav-text">
+          Roles
+        </span>
+      </a>
+    </div>
+    <div class="index-card" v>
+      <a href="#">
+        <i class="fa fa-file-text-o fa-2x"></i>
+        <span class="nav-text">
+          Templates
+        </span>
+      </a>
+    </div>
+    <div class="index-card" v>
+      <a href="#">
+        <i class="fa fa-github fa-2x"></i>
+        <span class="nav-text">
+          Github
+        </span>
+      </a>
+    </div>
+
+  </div>
+
+</div>

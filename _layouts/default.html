@@ -1,6 +1,25 @@
 <html>
-    <body>
-        <h4><a href="/">Root</a></h4>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+    {% include navbar.html %}
+    <div class="area">
         {{ content }}
-    </body>
+    </div>
+    {% include sideMenu.html %}
+    {% include footer.html %}
+</body>
+
+<script>
+    function toggleSidebar() {
+        const toggleClass = (el, className) => el.classList.toggle(className);
+        toggleClass(document.querySelector('.side-menu'), 'expanded'); // The div container will not have the 'active' class anymore
+    }
+</script>
+
 </html>

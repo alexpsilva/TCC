@@ -60,6 +60,8 @@ artifacts:
     name: Source code
     description: HTML, JS and CSS code
     optional: False
+    templtes:
+      - documentation_template
   - documentation:
     name: Documentation
     description: UML diagram

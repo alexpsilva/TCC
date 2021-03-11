@@ -29,5 +29,4 @@ layout: guideline
             i.style.display = "block"
         }
     }
-
 </script>
