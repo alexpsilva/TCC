@@ -1,5 +1,8 @@
 _site
+.vscode
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
+env
 vendor
+*.pyc

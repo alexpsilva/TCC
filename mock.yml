@@ -1,23 +1,23 @@
 process:
-  - bigu_development_process:
+  bigu_development_process:
     name: Bigu development process
     description: Henrique and Pedro duking it out
     phases:
       - phase_1
       - phase_2
 phases:
-  - phase_1: 
+  phase_1: 
     name: Phase 1
     description: The first phase
     activities:
       - specification
       - implementation
-  - phase_2: 
+  phase_2: 
     name: Phase 2
     description: The second phase
     activities:
 activities:
-  - specification:
+  specification:
     name: Specification
     description: The specification activity
     input_criterion: Some input criterion
@@ -36,7 +36,7 @@ activities:
     responsible_roles:
       - backend_developer
     sub_activities:
-  - implementation:
+  implementation:
     name: Implementation
     description: The implementation activity
     input_criterion: Some input criterion
@@ -56,38 +56,38 @@ activities:
       - frontend_developer
     sub_activities:
 artifacts:
-  - source_code:
+  source_code:
     name: Source code
     description: HTML, JS and CSS code
     optional: False
-    templtes:
+    templates:
       - documentation_template
-  - documentation:
+  documentation:
     name: Documentation
     description: UML diagram
     optional: True
 tools:
-  - vscode:
+  vscode:
     name: VSCode
     description: Visual Studio Code
-  - drawio:
+  drawio:
     name: DrawIO
     description: Draw.io website
 guidelines:
-  - general_guidelines:
+  general_guidelines:
     name: General guidelines
     description: The set of general guidelines
-  - bigu_guidelines:
+  bigu_guidelines:
     name: Bigu guidelines
     description: The set of guidelines that are specific to Bigu
 roles:
-  - frontend_developer:
+  frontend_developer:
     name: FrontEnd developer
     description: A developer that focuses on front-end tasks
-  - backend_developer:
+  backend_developer:
     name: BackEnd developer
     description: A developer that focuses on back-end tasks
 templates:
-  - documentation_template:
+  documentation_template:
     name: Documentation Template
     description: The documentation template
