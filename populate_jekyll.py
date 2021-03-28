@@ -3,11 +3,11 @@ import shutil
 import os
 
 filename = 'mock.yml'
-jekyl_project_name = 'jekyl_project_test'
-jekyl_project_path = 'E:/Workspace'
+jekyl_project_name = 'jekyl_project_test2'
+jekyl_project_path = 'C:\\Users\\henri\\Documents\\Projetos\\TCC'
 project_path = f'{jekyl_project_path}/{jekyl_project_name}'
 
-files_to_copy = ['index.html']
+files_to_copy = ['index.html', 'phase.html']
 folders_to_copy = ['_layouts', '_includes', 'assets/css']
 
 def create_folder(path, name):
