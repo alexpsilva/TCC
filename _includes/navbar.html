@@ -1,5 +1,8 @@
 <div class="nav-bar">
     <div class="nav-container">
-        <h1>Nome do Processo</h1>
+        <h1>
+            {% assign process = site.process | first %}
+            {{ process.name }}
+        </h1>
     </div>
 </div>
