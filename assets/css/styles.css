@@ -2,10 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-body, html {
+body,
+html {
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto', sans-serif;
+    background-color: #e2e2e2;
 }
 
 .fa-2x {
@@ -31,7 +33,7 @@ nav.side-menu.expanded {
 
 .side-menu {
     background: #212121;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     height: 100%;
@@ -138,15 +140,17 @@ nav.side-menu li.active>a,
     height: calc(100% - 60px);
     bottom: 0;
     right: 0;
-    width: calc(100% - 60px);
+    width: calc(95% - 145px);
+    margin-right: 5%;
 }
 
 .container {
-    display: grid;
-    height: 100%;
     width: 100%;
-    top: 0;
     position: absolute;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: calc(100vh - 60px);
 }
 
 .nav-container {
@@ -154,11 +158,11 @@ nav.side-menu li.active>a,
 }
 
 .nav-container h1 {
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
 
 .nav-bar {
-    width: 100vw;
+    width: 100%;
     height: 60px;
     background-color: white;
     z-index: 1;
@@ -169,7 +173,7 @@ nav.side-menu li.active>a,
     align-items: center;
 }
 
-.side-menu ul > li:first-child {
+.side-menu ul>li:first-child {
     height: 60px;
     display: flex;
     align-items: center;
@@ -190,20 +194,22 @@ nav.side-menu li.active>a,
 }
 
 nav.side-menu.expanded .fa-bars,
-nav.side-menu .fa-times{
+nav.side-menu .fa-times {
     display: none;
 }
 
 nav.side-menu .fa-bars,
-nav.side-menu.expanded .fa-times{
+nav.side-menu.expanded .fa-times {
     display: block;
 }
 
-button:focus { outline:0 !important; }
+button:focus {
+    outline: 0 !important;
+}
 
 #footer {
     width: 100vw;
-    position: absolute;
+    position: fixed;
     border-top: 1px solid gainsboro;
     height: 30px;
     background-color: white;
@@ -224,12 +230,85 @@ button:focus { outline:0 !important; }
     flex-wrap: wrap;
 }
 
-.index-card {
-    width: 25%;
-    height: 100px;
+#item-menu .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-.index-card a {
-    background-color: gainsboro;
-
+#index-menu .menu-text {
+    font-weight: 600;
+    font-size: 1.6em;
+    color: #23ae89;
 }
+
+.auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    grid-gap: 1rem;
+    width: 100%;
+    list-style-type: none;
+    padding: 0px;
+    padding-bottom: 1em;
+}
+.auto-grid li a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    background: #fff;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    border-color: #e9e9e9;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.auto-grid li a:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.14), 0 6px 6px rgba(0,0,0,0.10);
+}
+
+.auto-grid li .menu-item {
+    padding: 3rem 1rem;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.menu-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background: #23ae89!important;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.menu-icon .fa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.menu-item .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+@media(max-width:1030px){
+    .auto-grid {
+       grid-template-columns: repeat(1, 1fr);
+    }
+    .area {
+        width: calc(95% - 85px);
+    }
+  }

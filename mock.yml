@@ -1,7 +1,7 @@
 process:
   bigu_development_process:
     name: Bigu development process
-    description: Henrique and Pedro duking it out
+    description: Este processo define as atividades e tarefas necessárias para o desenvolvimento de uma plataforma capaz de gerar automaticamente o site para detalhar o processo.
     phases:
       - phase_1
       - phase_2

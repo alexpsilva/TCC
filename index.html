@@ -7,83 +7,149 @@ layout: default
 
 <div class="container">
   <div>
-    {% for p in site.process %}
-    <h2>{{ p.name }}</h2>
+    {% assign process = site.process | first %}
+    <h2>{{ process.name }}</h2>
 
-    <h2>
-      <a href="{{ p.url }}">
-        {{ p.description }}
-      </a>
-    </h2>
-    {% endfor %}
+    <p>
+      {{ process.description }}
+    </p>
   </div>
   <div id="index-menu">
-
-    <div class="index-card">
-      <a href="http://justinfarrow.com">
-        <i class="fa fa-calendar fa-2x"></i>
-        <span class="nav-text">
-          Phases
-        </span>
-      </a>
-    </div>
-    <div class="index-card">
-      <a href="#">
-        <i class="fa fa-bolt fa-2x"></i>
-        <span class="nav-text">
-          Activities
-        </span>
-      </a>
-    </div>
-    <div class="index-card">
-      <a href="#">
-        <i class="fa fa-trophy fa-2x"></i>
-        <span class="nav-text">
-          Artifacts
-        </span>
-      </a>
-    </div>
-    <div class="index-card">
-      <a href="#">
-        <i class="fa fa-gavel fa-2x"></i>
-        <span class="nav-text">
-          Tools
-        </span>
-      </a>
-    </div>
-    <div class="index-card">
-      <a href="#">
-        <i class="fa fa-list-ol fa-2x"></i>
-        <span class="nav-text">
-          Guidelines
-        </span>
-      </a>
-    </div>
-    <div class="index-card" v>
-      <a href="#">
-        <i class="fa fa-user fa-2x"></i>
-        <span class="nav-text">
-          Roles
-        </span>
-      </a>
-    </div>
-    <div class="index-card" v>
-      <a href="#">
-        <i class="fa fa-file-text-o fa-2x"></i>
-        <span class="nav-text">
-          Templates
-        </span>
-      </a>
-    </div>
-    <div class="index-card" v>
-      <a href="#">
-        <i class="fa fa-github fa-2x"></i>
-        <span class="nav-text">
-          Github
-        </span>
-      </a>
-    </div>
-
+    <ul class="auto-grid">
+      <li>
+        <a href="http://justinfarrow.com">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Phases
+              </div>
+              <div class="menu-count">
+                {{site.phases.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-calendar fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Activities
+              </div>
+              <div class="nav-text">
+                {{site.activities.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-bolt fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Artifacts
+              </div>
+              <div class="nav-text">
+                {{site.artifacts.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-trophy fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Tools
+              </div>
+              <div class="nav-text">
+                {{site.tools.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-gavel fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Guidelines
+              </div>
+              <div class="nav-text">
+                {{site.guidelines.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-list-ol fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Roles
+              </div>
+              <div class="nav-text">
+                {{site.roles.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-user fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Templates
+              </div>
+              <div class="nav-text">
+                {{site.templates.size}}
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-file-text-o fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">
+                Github
+              </div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-github fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
   </div>
 
 </div>
