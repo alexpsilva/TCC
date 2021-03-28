@@ -2,18 +2,52 @@
 layout: default
 ---
 
-<h1>I'm the '{{ page.name }}'</h1>
-<h2>{{ page.description }}</h2>
+<h1>Phases</h1>
 
-<h2>I have these activities:</h2>
+<div id="phases">
+  {% for a in site.phases %}
+  <div class="card phase {{a.pk}}">
+    <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
+    <div class="expand-container">
+      <label for="{{ a.name }}-icon" class="expand-icon"></label>
+    </div>
+    <div class="card-content">
+      <div class="left-column">
+        <a href="{{ a.url }}">
+          <h2>{{ a.name }}</h2>
+        </a>
+        <span class="subtitle">Description</span>
+        <p>{{ a.description }}</p>
+      </div>
+      <div class="right-column">
+        {% if a.activities != "" and a.activities != null %}
+        <span class="subtitle">Activities</span>
+        <ul>
+          {% for activity in a.activities %}
+          <li><a href="{{activitie.url}}">{{activity}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
-{% assign filtered_activities = site.activities | where: "phase", page.pk %}
-{% for a in filtered_activities %}
-  <h2>
-    <a href="{{ a.url }}">
-      {{ a.name }}
-    </a>
-  </h2>
-{% endfor %}
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('filter');
+  if (myParam != null) {
+      const filters = myParam.split(",")
+      filters.forEach(showFiltered) 
+  } else {
+      showFiltered("phase") 
+  }
 
-<h2>I'm also part of the <a href="/process/{{ page.process }}.html">{{ page.process }}</a> process btw</h2>
+  function showFiltered(filter) {
+      const test = document.querySelectorAll("."+filter)
+      for (var i of test) {
+          i.style.display = "block"
+      }
+  } 
+</script>
