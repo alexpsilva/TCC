@@ -3,8 +3,8 @@ import shutil
 import os
 
 filename = 'mock.yml'
-jekyl_project_name = 'jekyl_project_test2'
-jekyl_project_path = 'C:\\Users\\henri\\Documents\\Projetos\\TCC'
+jekyl_project_name = 'jekyl_project_test'
+jekyl_project_path = 'E:/Workspace'
 project_path = f'{jekyl_project_path}/{jekyl_project_name}'
 
 files_to_copy = ['index.html', 'phase.html']
