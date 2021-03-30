@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<h1>Artifacts</h1>
+
+<div id="artifacts">
+  {% for a in site.artifacts %}
+  <div class="card artifact {{a.pk}}">
+    <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
+    <div class="expand-container">
+      <label for="{{ a.name }}-icon" class="expand-icon"></label>
+    </div>
+    <div class="card-content">
+      <div class="left-column">
+        <a href="{{ a.url }}" class="title">
+          <h2>{{ a.name }}</h2>
+        </a>
+        <span class="subtitle">Description</span>
+        <p>{{ a.description }}</p>
+
+        <span class="subtitle">Optional?</span>
+        <p>{{ a.optional }}</p>
+      </div>
+
+      <div class="right-column">
+        <span class="subtitle">Templates</span>
+        {% if a.templates != "" and a.templates != null %}
+        <ul>
+          {% for template in a.templates %}
+          <li><a href="{{template.url}}">{{template}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('filter');
+  if (myParam != null) {
+    const filters = myParam.split(",")
+    filters.forEach(showFiltered)
+  } else {
+    showFiltered("artifact")
+  }
+
+  function showFiltered(filter) {
+    const test = document.querySelectorAll("." + filter)
+    for (var i of test) {
+      i.style.display = "block"
+    }
+  }
+</script>

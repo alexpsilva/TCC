@@ -334,7 +334,7 @@ button:focus {
     margin-bottom: 1em;
     display: flex;
     align-items: center;
-    height: 130px;
+    height: 150px;
 }
 
 .left-column {
@@ -342,6 +342,10 @@ button:focus {
     padding-right: 2em;
     border-right: 1px solid gainsboro;
     margin-right: 2em;
+}
+
+.left-column p {
+    margin-bottom: 1em;
 }
 
 .card .subtitle {
