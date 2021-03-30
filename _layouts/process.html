@@ -6,12 +6,13 @@ layout: default
 <h2>{{ page.description }}</h2>
 
 <h2>I have these phases:</h2>
+<p>{{page.pk}}</p>
 
-{% assign filtered_phases = site.phases | where: "process", page.pk %}
-{% for a in filtered_phases %}
+{% assign phases = site.phases %}
+{% for p in phases %}
   <h2>
-    <a href="{{ a.url }}">
-      {{ a.name }}
+    <a href="{{ p.url }}">
+      {{ p.name }}
     </a>
   </h2>
 {% endfor %}

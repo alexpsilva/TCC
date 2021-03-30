@@ -2,11 +2,11 @@
 layout: default
 ---
 
-<h1>Guidelines</h1>
+<h1>Templates</h1>
 
-<div id="guidelines">
-  {% for a in site.guidelines %}
-  <div class="card guideline {{a.pk}}">
+<div id="templates">
+  {% for a in site.templates %}
+  <div class="card template {{a.pk}}">
     <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
     <div class="expand-container">
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
@@ -32,7 +32,7 @@ layout: default
     const filters = myParam.split(",")
     filters.forEach(showFiltered)
   } else {
-    showFiltered("guideline")
+    showFiltered("template")
   }
 
   function showFiltered(filter) {

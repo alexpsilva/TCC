@@ -7,7 +7,7 @@ jekyl_project_name = 'jekyl_project_test'
 jekyl_project_path = 'E:/Workspace'
 project_path = f'{jekyl_project_path}/{jekyl_project_name}'
 
-files_to_copy = ['index.html', 'phase.html']
+files_to_copy = ['index.html', 'phase.html', 'guideline.html', 'activity.html', 'template.html', 'role.html', 'tool.html', 'artifact.html']
 folders_to_copy = ['_layouts', '_includes', 'assets/css']
 
 def create_folder(path, name):

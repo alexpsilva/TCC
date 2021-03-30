@@ -365,6 +365,7 @@ button:focus {
     background-color: #f7f7f7;
     padding: 0.5em 0.5em 0px 0.5em;
     border: 1px solid #eaeaea;
+    margin-bottom: .5em;
 }
 
 .right-column {
