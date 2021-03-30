@@ -319,7 +319,7 @@ button:focus {
     padding-bottom: 3em;
 }
 
-.phase {
+.phase, .activity {
     display: none;
 }
 
@@ -386,7 +386,7 @@ button:focus {
     text-decoration: none;
 }
 
-.left-column a {
+.card-content a.title {
     text-decoration: none;
     color: black;
 }
@@ -433,6 +433,29 @@ button:focus {
     max-height: inherit;
 }
 
+
+.activity .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 480px;
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.card-row > div {
+    flex: 1 1 0px
+}
+
+.card-row .right-column ul {
+    margin-right: 1em;
+}
+
 @media (max-width: 800px) {
     .card {
         display: inline-block;
@@ -440,7 +463,7 @@ button:focus {
         width: calc(89vw - 85px);
     }
 
-    .card-content {
+    .card-content, .activity .card-content {
         display: inline-block;
         width: 100%;
         height: inherit;
@@ -463,5 +486,9 @@ button:focus {
         position: absolute;
         margin-top: 11px;
         right: 8px;
+    }
+
+    .card-row {
+        flex-direction: column;
     }
 }
