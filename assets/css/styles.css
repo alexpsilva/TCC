@@ -357,7 +357,7 @@ button:focus {
     font-weight: 600;
 }
 
-.left-column p {
+.card p {
     margin: 0px;
     overflow-y: auto;
     max-height: 2.8em;
@@ -432,7 +432,8 @@ button:focus {
 .expand-card:checked~.card-content,
 .expand-card:checked~.card-content .left-column p,
 .expand-card:checked~.card-content .right-column,
-.expand-card:checked~.card-content .right-column ul {
+.expand-card:checked~.card-content .right-column ul,
+.expand-card:checked~.card-content .title-row p {
     height: inherit;
     max-height: inherit;
 }
@@ -458,6 +459,10 @@ button:focus {
 
 .card-row .right-column ul {
     margin-right: 1em;
+}
+
+.title-row {
+    width: 100%;
 }
 
 @media (max-width: 800px) {

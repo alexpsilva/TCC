@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<h1>Tools</h1>
+
+<div id="tools">
+  {% for a in site.tools %}
+  <div class="card tool {{a.pk}}">
+    <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
+    <div class="expand-container">
+      <label for="{{ a.name }}-icon" class="expand-icon"></label>
+    </div>
+    <div class="card-content">
+      <div class="title-row">
+        <a href="{{ a.url }}" class="title">
+          <h2>{{ a.name }}</h2>
+        </a>
+        <span class="subtitle">Description</span>
+        <p>{{ a.description }}</p>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('filter');
+  if (myParam != null) {
+    const filters = myParam.split(",")
+    filters.forEach(showFiltered)
+  } else {
+    showFiltered("tool")
+  }
+
+  function showFiltered(filter) {
+    const test = document.querySelectorAll("." + filter)
+    for (var i of test) {
+      i.style.display = "block"
+    }
+  }
+</script>
