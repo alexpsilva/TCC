@@ -13,7 +13,7 @@ layout: default
     </div>
     <div class="card-content">
       <div class="left-column">
-        <a href="{{ a.url }}" class="title">
+        <a href="/phase?filter={{ a.url }}" class="title">
           <h2>{{ a.name }}</h2>
         </a>
         <span class="subtitle">Description</span>
@@ -24,7 +24,7 @@ layout: default
         <span class="subtitle">Activities</span>
         <ul>
           {% for activity in a.activities %}
-          <li><a href="{{activitie.url}}">{{activity}}</a></li>
+          <li><a href="/activity?filter={{activity}}">{{activity}}</a></li>
           {% endfor %}
         </ul>
         {% endif %}
