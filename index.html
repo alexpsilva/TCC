@@ -8,10 +8,10 @@ layout: default
 <div class="container">
   <div>
     {% assign process = site.process | first %}
-    <h2>{{ process.name }}</h2>
+    <h2>{{ site.process_name }}</h2>
 
     <p>
-      {{ process.description }}
+      {{ site.process_description }}
     </p>
   </div>
   <div id="index-menu">

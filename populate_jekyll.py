@@ -38,9 +38,11 @@ def create_collection(path, items, layout):
                     raise TypeError(f'"{values}" is not a valid value for the "{property}" property')
 
             f.write('---')
-
-def add_collections_to_config(path, collections):
+    
+def fill_config_file(path, collections, process_name, process_description):
     with open(path, 'a') as f:
+        f.write(f'process_name: {process_name}\n')
+        f.write(f'process_description: {process_description}\n')
         f.write('\ncollections:\n')
 
         for collection in collections:
@@ -77,6 +79,9 @@ with open(filename, 'r') as stream:
     except YAMLError as exc:
         print(exc)
 
+process_name = raw_data.pop('process_name')
+process_description = raw_data.pop('process_description')
+
 entities = raw_data.keys()
 for entity in entities:
     collection_name = f'_{entity}'
@@ -87,7 +92,7 @@ for entity in entities:
     print(f'Created {entity} collection successfully')
 
 config_path = f'{project_path}/_config.yml'
-add_collections_to_config(config_path, entities)
+fill_config_file(config_path, entities, process_name, process_description)
 
 # Copy static files
 os.mkdir(f'{project_path}/assets')
