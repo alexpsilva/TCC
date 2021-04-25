@@ -39,10 +39,33 @@ def create_collection(path, items, layout):
 
             f.write('---')
 
-def add_collections_to_config(path, collections):
-    with open(path, 'a') as f:
-        f.write('\ncollections:\n')
+def build_activity_graph(activities):
+    mermaid_string = '"graph TD\\n'
+    solo_activities = set(activities.keys())
 
+    for id, activity in activities.items():
+        name = activity['name']
+
+        if activity.get('predecessor') in activities:
+            predecessor_id = activity['predecessor']
+            predecessor_name = activities[predecessor_id]['name']
+            mermaid_string += f' {id}[{name}] --> {predecessor_id}[{predecessor_name}]\\n'
+
+            if id in solo_activities:
+                solo_activities.remove(id)
+    
+    for id in solo_activities:
+        name = activities[id]['name']
+        mermaid_string += f' {id}[{name}]\\n'
+    
+    return mermaid_string + '"'
+
+def fill_config_file(path, collections, global_variables):
+    with open(path, 'a') as f:
+        for key, value in global_variables.items():
+            f.write(f'{key}: {value}\n')
+        
+        f.write('\ncollections:\n')
         for collection in collections:
             f.write(f'  {collection}:\n')
             f.write(f'    output: true\n')
@@ -60,6 +83,7 @@ def copy_statics_to_project(dest_path, files, folders):
             for file in folder_files:
                 shutil.copyfile(f'{current_path}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
 
+jekyll_global_variables = {}
 
 # Init Jekyll project
 os.system(f'jekyll new {project_path}')
@@ -77,6 +101,9 @@ with open(filename, 'r') as stream:
     except YAMLError as exc:
         print(exc)
 
+jekyll_global_variables['process_name'] = raw_data.pop('process_name')
+jekyll_global_variables['process_description'] = raw_data.pop('process_description')
+
 entities = raw_data.keys()
 for entity in entities:
     collection_name = f'_{entity}'
@@ -86,8 +113,10 @@ for entity in entities:
     create_collection(collection_path, raw_data[entity], entity)
     print(f'Created {entity} collection successfully')
 
+# Fill _config.yml file
+jekyll_global_variables['activity_graph'] = build_activity_graph(raw_data.get('activities', []))
 config_path = f'{project_path}/_config.yml'
-add_collections_to_config(config_path, entities)
+fill_config_file(config_path, entities, jekyll_global_variables)
 
 # Copy static files
 os.mkdir(f'{project_path}/assets')
