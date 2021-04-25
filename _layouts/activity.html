@@ -12,100 +12,102 @@ layout: default
             <label for="{{ a.name }}-icon" class="expand-icon"></label>
         </div>
         <div class="card-content">
-            <div class="title-row">
-                <a href="/activity?filter={{ a.url }}" class="title">
-                    <h2>{{ a.name }}</h2>
-                </a>
-                <span class="subtitle">Description</span>
-                <p>{{ a.description }}</p>
+            <a href="/activity?filter={{ a.url }}" class="title">
+                <h2>{{ a.name }}</h2>
+            </a>
+            <div class="hidden-content">
+                <div class="title-row">
+                    <span class="subtitle">Description</span>
+                    <p>{{ a.description }}</p>
 
-                <span class="subtitle">Input Criterion</span>
-                <p>{{ a.input_criterion }}</p>
-            </div>
+                    <span class="subtitle">Input Criterion</span>
+                    <p>{{ a.input_criterion }}</p>
+                </div>
 
-            <div class="card-row">
-                <div class="right-column">
-                    <span class="subtitle">Tools</span>
-                    {% if a.tools != "" and a.tools != null %}
-                    <ul>
-                        {% for tool in a.tools %}
-                        <li><a href="/tool?filter={{tool}}">{{tool}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                <div class="card-row">
+                    <div class="right-column">
+                        <span class="subtitle">Tools</span>
+                        {% if a.tools != "" and a.tools != null %}
+                        <ul>
+                            {% for tool in a.tools %}
+                            <li><a href="/tool?filter={{tool}}">{{tool}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Required Artifact</span>
+                        {% if a.required_artifacts != "" and a.required_artifacts != null %}
+                        <ul>
+                            {% for required_artifact in a.required_artifacts %}
+                            <li><a href="/artifact?filter={{required_artifact}}">{{required_artifact}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Produced Artifacts</span>
+                        {% if a.produced_artifacts != "" and a.produced_artifacts != null %}
+                        <ul>
+                            {% for produced_artifact in a.produced_artifacts %}
+                            <li><a href="/artifact?filter={{produced_artifact}}">{{produced_artifact}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Templates</span>
+                        {% if a.templates != "" and a.templates != null %}
+                        <ul>
+                            {% for template in a.templates %}
+                            <li><a href="/template?filter={{template}}">{{template}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="right-column">
-                    <span class="subtitle">Required Artifact</span>
-                    {% if a.required_artifacts != "" and a.required_artifacts != null %}
-                    <ul>
-                        {% for required_artifact in a.required_artifacts %}
-                        <li><a href="/artifact?filter={{required_artifact}}">{{required_artifact}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="right-column">
-                    <span class="subtitle">Produced Artifacts</span>
-                    {% if a.produced_artifacts != "" and a.produced_artifacts != null %}
-                    <ul>
-                        {% for produced_artifact in a.produced_artifacts %}
-                        <li><a href="/artifact?filter={{produced_artifact}}">{{produced_artifact}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="right-column">
-                    <span class="subtitle">Templates</span>
-                    {% if a.templates != "" and a.templates != null %}
-                    <ul>
-                        {% for template in a.templates %}
-                        <li><a href="/template?filter={{template}}">{{template}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
 
-            <div class="card-row">
-                <div class="right-column">
-                    <span class="subtitle">Guidelines</span>
-                    {% if a.guidelines != "" and a.guidelines != null %}
-                    <ul>
-                        {% for guideline in a.guidelines %}
-                        <li><a href="/guideline?filter={{guideline}}">{{guideline}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="right-column">
-                    <span class="subtitle">Participant Role</span>
-                    {% if a.participant_roles != "" and a.participant_roles != null %}
-                    <ul>
-                        {% for participant_role in a.participant_roles %}
-                        <li><a href="/role?filter={{participant_role}}">{{participant_role}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="right-column">
-                    <span class="subtitle">Responsible Roles</span>
-                    {% if a.responsible_roles != "" and a.responsible_roles != null %}
-                    <ul>
-                        {% for responsible_role in a.responsible_roles %}
-                        <li><a href="/role?filter={{responsible_role}}">{{responsible_role}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="right-column">
-                    <span class="subtitle">Sub Activities</span>
-                    {% if a.sub_activities != "" and a.sub_activities != null %}
-                    <ul>
-                        {% for sub_activity in a.sub_activities %}
-                        <li><a href="/activity?filter={{sub_activity}}">{{sub_activity}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                <div class="card-row">
+                    <div class="right-column">
+                        <span class="subtitle">Guidelines</span>
+                        {% if a.guidelines != "" and a.guidelines != null %}
+                        <ul>
+                            {% for guideline in a.guidelines %}
+                            <li><a href="/guideline?filter={{guideline}}">{{guideline}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Participant Role</span>
+                        {% if a.participant_roles != "" and a.participant_roles != null %}
+                        <ul>
+                            {% for participant_role in a.participant_roles %}
+                            <li><a href="/role?filter={{participant_role}}">{{participant_role}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Responsible Roles</span>
+                        {% if a.responsible_roles != "" and a.responsible_roles != null %}
+                        <ul>
+                            {% for responsible_role in a.responsible_roles %}
+                            <li><a href="/role?filter={{responsible_role}}">{{responsible_role}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="right-column">
+                        <span class="subtitle">Sub Activities</span>
+                        {% if a.sub_activities != "" and a.sub_activities != null %}
+                        <ul>
+                            {% for sub_activity in a.sub_activities %}
+                            <li><a href="/activity?filter={{sub_activity}}">{{sub_activity}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

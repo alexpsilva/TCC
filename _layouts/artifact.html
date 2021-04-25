@@ -12,26 +12,29 @@ layout: default
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
     </div>
     <div class="card-content">
-      <div class="left-column">
-        <a href="/artifact?filter={{ a.url }}" class="title">
-          <h2>{{ a.name }}</h2>
-        </a>
-        <span class="subtitle">Description</span>
-        <p>{{ a.description }}</p>
+      <a href="/artifact?filter={{ a.url }}" class="title">
+        <h2>{{ a.name }}</h2>
+      </a>
+      <div class="hidden-content">
 
-        <span class="subtitle">Optional?</span>
-        <p>{{ a.optional }}</p>
-      </div>
+        <div class="left-column">
+          <span class="subtitle">Description</span>
+          <p>{{ a.description }}</p>
 
-      <div class="right-column">
-        <span class="subtitle">Templates</span>
-        {% if a.templates != "" and a.templates != null %}
-        <ul>
-          {% for template in a.templates %}
-          <li><a href="/template?filter={{template}}">{{template}}</a></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
+          <span class="subtitle">Optional?</span>
+          <p>{{ a.optional }}</p>
+        </div>
+
+        <div class="right-column">
+          <span class="subtitle">Templates</span>
+          {% if a.templates != "" and a.templates != null %}
+          <ul>
+            {% for template in a.templates %}
+            <li><a href="/template?filter={{template}}">{{template}}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
