@@ -93,7 +93,7 @@ os.remove(f'{project_path}/404.html')
 os.remove(f'{project_path}/about.markdown')
 os.remove(f'{project_path}/index.markdown')
 
-# Create collections
+# Read .yml file
 raw_data = {}
 with open(filename, 'r') as stream:
     try:
@@ -104,6 +104,16 @@ with open(filename, 'r') as stream:
 jekyll_global_variables['process_name'] = raw_data.pop('process_name')
 jekyll_global_variables['process_description'] = raw_data.pop('process_description')
 
+# Add the 'activities that reference it' for each role
+for activity_id, activity in raw_data['activities'].items():
+    activity_roles = activity.get('participant_roles', []) + activity.get('responsible_roles', [])
+    for role_id in activity_roles:
+        if role_id not in raw_data.get('roles', []):
+            continue
+        
+        raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
+
+# Create collections
 entities = raw_data.keys()
 for entity in entities:
     collection_name = f'_{entity}'
