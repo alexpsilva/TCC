@@ -12,14 +12,32 @@ folders_to_copy = ['_layouts', '_includes', 'assets/css']
 
 def create_folder(path, name):
     folder_path = f'{path}/{name}'
-    try:
-        os.mkdir(folder_path)
-    except OSError as e:
-        print(f"Failed to create {folder_path}")
+    if os.path.isdir(folder_path):
+        print(f'{folder_path} already exists. Re-creating it.')
+        shutil.rmtree(folder_path)
+    
+    os.mkdir(folder_path)
+
+def delete_file(path):
+    if os.path.isfile(path):
+        os.remove(path)
+
+def enrich_role_data(raw_data):
+    # Add the 'activities that reference it' for each role
+    for activity_id, activity in raw_data['activities'].items():
+        activity_roles = activity.get('participant_roles', []) + activity.get('responsible_roles', [])
+        for role_id in activity_roles:
+            if role_id not in raw_data.get('roles', []):
+                continue
+            
+            raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
 
 def create_collection(path, items, layout):
     for identifier, properties in items.items():
-        with open(f'{path}/{identifier}.md', 'w') as f:
+        file_path = f'{path}/{identifier}.md'
+        delete_file(file_path)
+
+        with open(file_path, 'w') as f:
             f.write('---\n')
 
             f.write(f'layout: {layout}\n\n')
@@ -61,6 +79,8 @@ def build_activity_graph(activities):
     return mermaid_string + '"'
 
 def fill_config_file(path, collections, global_variables):
+    delete_file(path)
+    
     with open(path, 'a') as f:
         for key, value in global_variables.items():
             f.write(f'{key}: {value}\n')
@@ -73,11 +93,14 @@ def fill_config_file(path, collections, global_variables):
 def copy_statics_to_project(dest_path, files, folders):
     current_path = os.getcwd()
 
+    create_folder(dest_path, 'assets')
+
     for file in files:
+        delete_file(f'{dest_path}/{file}')
         shutil.copyfile(f'{current_path}/{file}', f'{dest_path}/{file}')
     
     for folder in folders:
-        os.mkdir(f'{dest_path}/{folder}')
+        create_folder(dest_path, folder)
         
         for _, _, folder_files in os.walk(folder):
             for file in folder_files:
@@ -85,13 +108,14 @@ def copy_statics_to_project(dest_path, files, folders):
 
 jekyll_global_variables = {}
 
-# Init Jekyll project
-os.system(f'jekyll new {project_path}')
+if not os.path.exists(project_path):
+    # Init Jekyll project
+    os.system(f'jekyll new {project_path}')
 
-# Remove template files
-os.remove(f'{project_path}/404.html')
-os.remove(f'{project_path}/about.markdown')
-os.remove(f'{project_path}/index.markdown')
+    # Remove template files
+    os.remove(f'{project_path}/404.html')
+    os.remove(f'{project_path}/about.markdown')
+    os.remove(f'{project_path}/index.markdown')
 
 # Read .yml file
 raw_data = {}
@@ -104,16 +128,8 @@ with open(filename, 'r') as stream:
 jekyll_global_variables['process_name'] = raw_data.pop('process_name')
 jekyll_global_variables['process_description'] = raw_data.pop('process_description')
 
-# Add the 'activities that reference it' for each role
-for activity_id, activity in raw_data['activities'].items():
-    activity_roles = activity.get('participant_roles', []) + activity.get('responsible_roles', [])
-    for role_id in activity_roles:
-        if role_id not in raw_data.get('roles', []):
-            continue
-        
-        raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
-
 # Create collections
+enrich_role_data(raw_data)
 entities = raw_data.keys()
 for entity in entities:
     collection_name = f'_{entity}'
@@ -129,5 +145,4 @@ config_path = f'{project_path}/_config.yml'
 fill_config_file(config_path, entities, jekyll_global_variables)
 
 # Copy static files
-os.mkdir(f'{project_path}/assets')
 copy_statics_to_project(project_path, files_to_copy, folders_to_copy)
