@@ -91,20 +91,19 @@ def fill_config_file(path, collections, global_variables):
             f.write(f'    output: true\n')
 
 def copy_statics_to_project(dest_path, files, folders):
-    current_path = os.getcwd()
-
+    root_dir = os.getcwd() # TO-DO: Change this to not use the current dir
     create_folder(dest_path, 'assets')
 
     for file in files:
         delete_file(f'{dest_path}/{file}')
-        shutil.copyfile(f'{current_path}/{file}', f'{dest_path}/{file}')
+        shutil.copyfile(f'{root_dir}/{file}', f'{dest_path}/{file}')
     
     for folder in folders:
         create_folder(dest_path, folder)
         
         for _, _, folder_files in os.walk(folder):
             for file in folder_files:
-                shutil.copyfile(f'{current_path}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
+                shutil.copyfile(f'{root_dir}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
 
 jekyll_global_variables = {}
 
