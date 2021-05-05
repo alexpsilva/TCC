@@ -1,5 +1,5 @@
 import requests
-from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
+from typing import Callable, Dict, Iterable, List, Optional, Set, Tuple, Union
 
 from requests.models import HTTPError
 
@@ -82,20 +82,35 @@ class GithubAPI:
         self.staged_changes[path] = blob
 
     def commit(self, branch, message):
-        path = list(self.staged_changes.keys())[0]
-        blob = list(self.staged_changes.values())[0]
+        # Group changes by folder
+        get_containing_folder = lambda path: '\\'.join(path.split('\\').pop(-1))
+        files_by_folder: Dict[str, List[str]] = {}
+        for path in self.staged_changes.keys():
+            containing_folder = get_containing_folder(path)
+            files_by_folder.setdefault(containing_folder, []).append(path)
 
-        tree =  self.create_tree([{
-            'path': path, 
-            'mode': GITHUB_TREE_FILE_MODES.file, 
-            'type': 'blob', 
-            'sha': blob['sha']
-        }])
+        # TO-DO: Create a tree according to the file structure (currently everything goes in the root)
 
+        # Create trees for the staged changes
+        blobs = []
+        for folder, files in files_by_folder.items():
+            for file_path in files:
+                blob = self.staged_changes[file_path]
+                blobs.append({
+                    'path': file_path, 
+                    'mode': GITHUB_TREE_FILE_MODES.file, 
+                    'type': 'blob', 
+                    'sha': blob['sha']
+                })
+
+        tree =  self.create_tree(blobs)
         ref = f'heads/{branch}'
         
+        # TO-DO: Handle file deletes
         # TO-DO: Handle commits on new branches (without a previous ref)
         # TO-DO: Handle multiple pending commits before pushing changes
+
+        # Commit root tree
         last_ref = self.get(f'/repos/{self.user}/{self.repo}/git/refs/{ref}')
         self.pending_commits[branch] = self.post(
             f'/repos/{self.user}/{self.repo}/git/commits', 
