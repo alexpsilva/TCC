@@ -3,9 +3,8 @@ import shutil
 import os
 
 filename = 'mock.yml'
-jekyl_project_name = 'jekyl_project_test'
-jekyl_project_path = 'E:/Workspace'
-project_path = f'{jekyl_project_path}/{jekyl_project_name}'
+jekyll_project_name = '_temp_jekyl_project'
+project_path = f'./{jekyll_project_name}'
 
 files_to_copy = ['index.html', 'phase.html', 'guideline.html', 'activity.html', 'template.html', 'role.html', 'tool.html', 'artifact.html']
 folders_to_copy = ['_layouts', '_includes', 'assets/css']
@@ -109,7 +108,7 @@ jekyll_global_variables = {}
 
 if not os.path.exists(project_path):
     # Init Jekyll project
-    os.system(f'jekyll new {project_path}')
+    os.system(f'jekyll new {jekyll_project_name}')
 
     # Remove template files
     os.remove(f'{project_path}/404.html')

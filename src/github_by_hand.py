@@ -1,11 +1,12 @@
 from github_api import GithubAPI
 import os
 
-project_path = f'E:\\Workspace\\jekyl_project_test'
+project_path = f'./_temp_jekyl_project'
 ignore_list = [
     f'{project_path}\\.git',
     f'{project_path}\\.jekyll-cache',
-    f'{project_path}\\_site'
+    f'{project_path}\\_site',
+    f'{project_path}\\_temp_jekyl_project'
 ]
 
 def should_ignore(path):
@@ -40,5 +41,8 @@ for absolute_path in files_to_commit:
     print(f'Staging {relative_path} for commit')
     git.add(relative_path, data)
 
+print(f'Commiting staged changes')
 git.commit('main', 'Initial commit (by ASilva)')
+
+print(f'Pushing refs')
 git.push('main')
