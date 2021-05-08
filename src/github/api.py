@@ -1,6 +1,6 @@
 import requests
 from typing import Callable, Dict, Optional, Tuple, Union, cast, List
-from github_types import *
+from .types import *
 
 from requests.models import HTTPError
 
