@@ -1,31 +1,24 @@
 import requests
-from typing import Callable, Dict, Iterable, List, Optional, Set, Tuple, Union
+from typing import Callable, Dict, Optional, Tuple, Union, cast, List
+from github_types import *
 
 from requests.models import HTTPError
 
-JSON = Dict[str, Union[str, int, float, bool, 'JSON', Iterable['JSON']]]
-
-class GITHUB_TREE_FILE_MODES:
-    file = '100644'
-    executable = '100755'
-    subdirectory = '040000'
-    submodule = '160000'
-    symlink = '120000'
-
 class GithubAPI:
     base_url = 'https://api.github.com'
-    base_params: Dict[str, Union[Dict[str, str], Tuple[str, str]]] = {
-        'headers': {
-            'Accept': 'application/vnd.github.v3+json'
-        },
-    }
-    staged_changes: Dict[str, JSON] = {}
-    pending_commits: Dict[str, JSON] = {}
 
     def __init__(self, user: str, access_token: str) -> None:
-        self.base_params['auth'] = (user, access_token)
+        self.staged_changes = FILE_TREE()
+        self.pending_commits: Dict[str, JSON] = {}
+        
+        self.base_params: Dict[str, Union[Dict[str, str], Tuple[str, str]]] = {
+            'headers': {
+                'Accept': 'application/vnd.github.v3+json'
+            },
+            'auth': (user, access_token)
+        }
+        
         self.user = self.get('/user')['login']
-
         self.repo = f'{user}.github.io'
 
         try:
@@ -65,59 +58,71 @@ class GithubAPI:
     def post(self, endpoint: str, body: JSON) -> JSON:
         return self._request(endpoint, requests.post, body)
 
-    def create_blob(self, content):
-        return self.post(
+    def create_blob(self, content: str) -> GithubElement:
+        return cast(GithubElement, self.post(
             f'/repos/{self.user}/{self.repo}/git/blobs', 
             { 'content': content }
-        )
+        ))
     
-    def create_tree(self, content):
-        return self.post(
+    def create_tree(self, content: List[Tree]) -> GithubElement:
+        return cast(GithubElement, self.post(
             f'/repos/{self.user}/{self.repo}/git/trees', 
-            { 'tree': content }
-        )
-    
+            { 'tree': cast(List[JSON], content) }
+        ))
+
     def add(self, path, content):
         blob = self.create_blob(content)
-        self.staged_changes[path] = blob
-
-    def commit(self, branch, message):
-        # Group changes by folder
-        get_containing_folder = lambda path: '\\'.join(path.split('\\').pop(-1))
-        files_by_folder: Dict[str, List[str]] = {}
-        for path in self.staged_changes.keys():
-            containing_folder = get_containing_folder(path)
-            files_by_folder.setdefault(containing_folder, []).append(path)
-
-        # TO-DO: Create a tree according to the file structure (currently everything goes in the root)
-
-        # Create trees for the staged changes
-        blobs = []
-        for folder, files in files_by_folder.items():
-            for file_path in files:
-                blob = self.staged_changes[file_path]
-                blobs.append({
-                    'path': file_path, 
-                    'mode': GITHUB_TREE_FILE_MODES.file, 
-                    'type': 'blob', 
-                    'sha': blob['sha']
-                })
-
-        tree =  self.create_tree(blobs)
-        ref = f'heads/{branch}'
         
-        # TO-DO: Handle file deletes
+        containing_folders = path.split('\\')
+        file_name = containing_folders.pop(-1)
+
+        last_folder = self.staged_changes
+        for folder in containing_folders:
+            last_folder.folders.setdefault(folder, FILE_TREE())
+            last_folder = last_folder.folders[folder]
+        
+        last_folder.files[file_name] = blob
+
+    def _build_tree_from_folder(self, folder: FILE_TREE) -> str:
+        contents: List[Tree] = []
+
+        for sub_folder_name, sub_folder in folder.folders.items():
+            sub_tree_sha = self._build_tree_from_folder(sub_folder)
+            
+            contents.append({
+                'path': sub_folder_name, 
+                'mode': GITHUB_TREE_FILE_MODES.subdirectory, 
+                'type': 'tree', 
+                'sha': sub_tree_sha
+            })
+
+        for file_name, file in folder.files.items():
+            contents.append({
+                'path': file_name, 
+                'mode': GITHUB_TREE_FILE_MODES.file, 
+                'type': 'blob', 
+                'sha': file['sha']
+            })
+
+        tree = self.create_tree(contents)
+        return tree['sha']
+
+    def commit(self, branch: str, message: str) -> None:
+        tree_sha = self._build_tree_from_folder(self.staged_changes)
+        
         # TO-DO: Handle commits on new branches (without a previous ref)
         # TO-DO: Handle multiple pending commits before pushing changes
 
         # Commit root tree
+        ref = f'heads/{branch}'
         last_ref = self.get(f'/repos/{self.user}/{self.repo}/git/refs/{ref}')
+        last_ref_object = cast(GithubElement, last_ref['object'])
         self.pending_commits[branch] = self.post(
             f'/repos/{self.user}/{self.repo}/git/commits', 
             {
                 'message': message,
-                'tree': tree['sha'],
-                'parents': [last_ref['object']['sha']] # type: ignore
+                'tree': tree_sha,
+                'parents': [last_ref_object['sha']]
             }
         )
     

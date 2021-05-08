@@ -1,4 +1,4 @@
-from GithubAPI import GithubAPI
+from github_api import GithubAPI
 import os
 
 project_path = f'E:\\Workspace\\jekyl_project_test'
