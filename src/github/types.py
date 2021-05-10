@@ -20,6 +20,10 @@ class Tree(TypedDict):
     type: GITHUB_TREE_TYPES
     sha: str
 
+class Ref(GithubElement):
+    type: str
+    
+
 JSON_ELEMENT = Union[str, int, float, bool, 'JSON', Iterable['JSON_ELEMENT']]
 JSON = Dict[str, JSON_ELEMENT]
 
