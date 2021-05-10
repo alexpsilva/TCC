@@ -12,16 +12,16 @@ layout: default
             <label for="{{ a.name }}-icon" class="expand-icon"></label>
         </div>
         <div class="card-content">
-            <a href="/activity?filter={{ a.url }}" class="title">
+            <span class="title">
                 <h2>{{ a.name }}</h2>
-            </a>
+            </span>
             <div class="hidden-content">
                 <div class="title-row">
                     <span class="subtitle">Description</span>
-                    <p>{{ a.description }}</p>
+                    <div class="markdown-it text-block">{{ a.description }}</div>
 
                     <span class="subtitle">Input Criterion</span>
-                    <p>{{ a.input_criterion }}</p>
+                    <p class="markdown-it text-block">{{ a.input_criterion }}</p>
                 </div>
 
                 <div class="card-row">

@@ -12,17 +12,17 @@ layout: default
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
     </div>
     <div class="card-content">
-      <a href="/artifact?filter={{ a.url }}" class="title">
+      <span class="title">
         <h2>{{ a.name }}</h2>
-      </a>
+      </span>
       <div class="hidden-content">
 
         <div class="left-column">
           <span class="subtitle">Description</span>
-          <p>{{ a.description }}</p>
+          <p class="markdown-it text-block">{{ a.description }}</p>
 
           <span class="subtitle">Optional?</span>
-          <p>{{ a.optional }}</p>
+          <p class="text-block">{{ a.optional }}</p>
         </div>
 
         <div class="right-column">

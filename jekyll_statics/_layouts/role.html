@@ -13,12 +13,12 @@ layout: default
     </div>
     <div class="card-content">
       <div class="title-row">
-        <a href="/role?filter={{ a.url }}" class="title">
+        <span class="title">
           <h2>{{ a.name }}</h2>
-        </a>
+        </span>
         <div class="hidden-content">
           <span class="subtitle">Description</span>
-          <p>{{ a.description }}</p>
+          <p class="markdown-it text-block">{{ a.description }}</p>
         </div>
       </div>
     </div>
