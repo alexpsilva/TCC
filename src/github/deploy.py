@@ -42,7 +42,7 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
         git.add(relative_path, data)
 
     print(f'Commiting staged changes')
-    git.commit('main', 'Initial commit (by ASilva)')
+    git.commit('main')
 
     print(f'Pushing refs')
     git.push('main')

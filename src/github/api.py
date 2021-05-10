@@ -107,7 +107,7 @@ class GithubAPI:
         tree = self.create_tree(contents)
         return tree['sha']
 
-    def commit(self, branch: str, message: str) -> None:
+    def commit(self, branch: str) -> None:
         tree_sha = self._build_tree_from_folder(self.staged_changes)
         
         # TO-DO: Handle commits on new branches (without a previous ref)
@@ -116,13 +116,24 @@ class GithubAPI:
         # Commit root tree
         ref = f'heads/{branch}'
         last_ref = self.get(f'/repos/{self.user}/{self.repo}/git/refs/{ref}')
-        last_ref_object = cast(GithubElement, last_ref['object'])
+        last_ref_object = cast(Ref, last_ref['object'])
+        last_commit_sha = last_ref_object['sha']
+
+        version = '1.0'
+        if last_ref_object['type'] == 'commit':
+            last_commit = self.get(f'/repos/{self.user}/{self.repo}/git/commits/{last_commit_sha}')
+            try:
+                last_version = last_commit['message'].replace('Version ', '') # type: ignore
+                version = str(float(last_version) + 0.1)
+            except:
+                pass
+
         self.pending_commits[branch] = self.post(
             f'/repos/{self.user}/{self.repo}/git/commits', 
             {
-                'message': message,
+                'message': f'Version {version}',
                 'tree': tree_sha,
-                'parents': [last_ref_object['sha']]
+                'parents': [last_commit_sha]
             }
         )
     
