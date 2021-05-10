@@ -113,7 +113,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
         for folder in folders:
             create_folder(dest_path, folder)
             
-            for _, _, folder_files in os.walk(folder):
+            for _, _, folder_files in os.walk(f'{statics_dir}/{folder}'):
                 for file in folder_files:
                     shutil.copyfile(f'{statics_dir}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
 
