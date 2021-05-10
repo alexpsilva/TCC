@@ -4,9 +4,23 @@ import os
 
 def populate_jekyll(process_description_path: str, project_path: str):
     jekyll_project_name = project_path.split('/')[-1]
+    statics_base_path = 'jekyll_statics/'
 
-    files_to_copy = ['index.html', 'phase.html', 'guideline.html', 'activity.html', 'template.html', 'role.html', 'tool.html', 'artifact.html']
-    folders_to_copy = ['_layouts', '_includes', 'assets/css']
+    files_to_copy = [
+        'index.html', 
+        'phase.html', 
+        'guideline.html', 
+        'activity.html', 
+        'template.html', 
+        'role.html', 
+        'tool.html', 
+        'artifact.html'
+    ]
+    folders_to_copy = [
+        '_layouts', 
+        '_includes', 
+        'assets/css'
+    ]
 
     def create_folder(path, name):
         folder_path = f'{path}/{name}'
@@ -89,19 +103,19 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 f.write(f'    output: true\n')
 
     def copy_statics_to_project(dest_path, files, folders):
-        root_dir = os.getcwd() # TO-DO: Change this to not use the current dir
+        statics_dir = os.getcwd() + f'/{statics_base_path}' # TO-DO: Change this to not use the current dir
         create_folder(dest_path, 'assets')
 
         for file in files:
             delete_file(f'{dest_path}/{file}')
-            shutil.copyfile(f'{root_dir}/{file}', f'{dest_path}/{file}')
+            shutil.copyfile(f'{statics_dir}/{file}', f'{dest_path}/{file}')
         
         for folder in folders:
             create_folder(dest_path, folder)
             
             for _, _, folder_files in os.walk(folder):
                 for file in folder_files:
-                    shutil.copyfile(f'{root_dir}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
+                    shutil.copyfile(f'{statics_dir}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
 
     jekyll_global_variables = {}
 
