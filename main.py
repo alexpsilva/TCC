@@ -22,5 +22,5 @@ def upload_yml():
     file.save(file_path)
 
     populate_jekyll(file_path, project_path)
-    deploy_to_github(project_path, request.form['github_user'], request.form['github_token'])
+    # deploy_to_github(project_path, request.form['github_user'], request.form['github_token'])
     return 'success'

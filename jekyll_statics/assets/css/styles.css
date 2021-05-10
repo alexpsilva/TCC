@@ -272,7 +272,7 @@ button:focus {
 }
 
 .auto-grid li .menu-item {
-    padding: 3rem 1rem;
+    padding: 1rem 1rem;
     display: flex;
     margin: auto;
     width: 100%;
@@ -353,7 +353,7 @@ button:focus {
     font-weight: 600;
 }
 
-.card p {
+.card .text-block {
     margin: 0px;
     overflow-y: auto;
     max-height: 2.8em;
@@ -362,6 +362,10 @@ button:focus {
     padding: 0.5em 0.5em 0px 0.5em;
     border: 1px solid #eaeaea;
     margin-bottom: .5em;
+}
+
+.card .markdown-it.text-block {
+    max-height: inherit;
 }
 
 .right-column {
@@ -489,6 +493,27 @@ button:focus {
     padding-top: 0.5em;
 }
 
+.index-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.index-content>div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mermaid {
+    min-width: 700px;
+    margin-bottom: 3em;
+}
+
+.mermaid > svg {
+    margin: 3em;
+}
+
 @media (max-width: 800px) {
     .card {
         display: inline-block;
@@ -535,4 +560,28 @@ button:focus {
 .role,
 .template {
     display: none;
+}
+
+
+.markdown-it .table {
+    margin-bottom: 20px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid gainsboro;
+}
+
+.markdown-it .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+
+.markdown-it .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+
+.markdown-it .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
 }
