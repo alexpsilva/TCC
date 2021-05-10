@@ -1,5 +1,6 @@
 _site
 _temp_jekyl_project
+_uploads
 .vscode
 .sass-cache
 .jekyll-cache
