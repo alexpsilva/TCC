@@ -124,7 +124,7 @@ class GithubAPI:
             last_commit = self.get(f'/repos/{self.user}/{self.repo}/git/commits/{last_commit_sha}')
             try:
                 last_version = last_commit['message'].replace('Version ', '') # type: ignore
-                version = str(float(last_version) + 0.1)
+                version = '{:1.1f}'.format(float(last_version) + 0.1)
             except:
                 pass
 
