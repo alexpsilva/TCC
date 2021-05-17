@@ -5,6 +5,7 @@ import os
 def populate_jekyll(process_description_path: str, project_path: str):
     jekyll_project_name = project_path.split('/')[-1]
     statics_base_path = 'jekyll_statics/'
+    markdown_properties = ['description']
 
     files_to_copy = [
         'index.html', 
@@ -58,8 +59,15 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 for property, values in properties.items():
                     if values is None:
                         f.write(f'{property}:\n')
-                    elif isinstance(values, str) or isinstance(values, bool):
+                    elif isinstance(values, bool):
                         f.write(f'{property}: {values}\n')
+                    elif isinstance(values, str):
+                        f.write(f'{property}: ')
+                        if property in markdown_properties:
+                            parsed_values = '  ' + values.replace('\\n', '\n').replace('\n', '\n  ')
+                            f.write(f'>-\n{parsed_values}\n')
+                        else:
+                            f.write(f'{values}\n')
                     elif isinstance(values, list):
                         f.write(f'{property}:\n')
                         for value in values:
