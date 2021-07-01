@@ -34,7 +34,7 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
     # Commit and push project files
     git = GithubAPI(user, token)
     for absolute_path in files_to_commit:
-        with open(absolute_path, 'r') as file:
+        with open(absolute_path, 'r', encoding='utf8') as file:
             data = file.read()
 
         relative_path = absolute_path.replace(project_path + '\\', '')

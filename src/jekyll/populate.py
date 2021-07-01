@@ -38,7 +38,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
     def enrich_role_data(raw_data):
         # Add the 'activities that reference it' for each role
         for activity_id, activity in raw_data['activities'].items():
-            activity_roles = activity.get('participant_roles', []) + activity.get('responsible_roles', [])
+            activity_roles = (activity.get('participant_roles') or []) + (activity.get('responsible_roles') or [])
             for role_id in activity_roles:
                 if role_id not in raw_data.get('roles', []):
                     continue
@@ -50,7 +50,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
             file_path = f'{path}/{identifier}.md'
             delete_file(file_path)
 
-            with open(file_path, 'w') as f:
+            with open(file_path, 'w', encoding='utf8') as f:
                 f.write('---\n')
 
                 f.write(f'layout: {layout}\n\n')
@@ -101,7 +101,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
     def fill_config_file(path, collections, global_variables):
         delete_file(path)
         
-        with open(path, 'a') as f:
+        with open(path, 'a', encoding='utf8') as f:
             for key, value in global_variables.items():
                 f.write(f'{key}: {value}\n')
             
@@ -138,11 +138,13 @@ def populate_jekyll(process_description_path: str, project_path: str):
 
     # Read .yml file
     raw_data = {}
-    with open(process_description_path, 'r') as stream:
+    with open(process_description_path, 'r', encoding='utf8') as stream:
         try:
             raw_data = safe_load(stream)
         except YAMLError as exc:
+            print('\nError when trying to read the %s file'.format(process_description_path))
             print(exc)
+            return 
 
     jekyll_global_variables['process_name'] = raw_data.pop('process_name')
     jekyll_global_variables['process_description'] = raw_data.pop('process_description')

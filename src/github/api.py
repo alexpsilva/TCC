@@ -44,7 +44,7 @@ class GithubAPI:
         if response.ok:
             return response.json()
         else:
-            raise HTTPError
+            raise HTTPError(response.reason)
 
     def get(self, endpoint: str) -> JSON:
         return self._request(endpoint, requests.get)
