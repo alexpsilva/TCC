@@ -52,5 +52,9 @@ layout: default
     for (var i of test) {
       i.style.display = "block"
     }
+
+    if (document.querySelectorAll('.card[style*="display: block"]').length === 1) {
+      document.querySelectorAll('.card[style*="display: block"] input')[0].checked = true;
+    }
   }
 </script>

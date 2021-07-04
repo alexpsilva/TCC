@@ -7,7 +7,7 @@ layout: default
 <div id="roles">
   {% for a in site.roles %}
   <div class="card role {{a.pk}}">
-    <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
+    <input type="checkbox" id="{{ a.name }}-icon" class="expand-card" />
     <div class="expand-container">
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
     </div>
@@ -28,18 +28,25 @@ layout: default
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('filter');
+  const myParam = urlParams.get("filter");
   if (myParam != null) {
-    const filters = myParam.split(",")
-    filters.forEach(showFiltered)
+    const filters = myParam.split(",");
+    filters.forEach(showFiltered);
   } else {
-    showFiltered("role")
+    showFiltered("role");
   }
 
   function showFiltered(filter) {
-    const test = document.querySelectorAll("." + filter)
+    const test = document.querySelectorAll("." + filter);
     for (var i of test) {
-      i.style.display = "block"
+      i.style.display = "block";
+    }
+    if (
+      document.querySelectorAll('.card[style*="display: block"]').length === 1
+    ) {
+      document.querySelectorAll(
+        '.card[style*="display: block"] input'
+      )[0].checked = true;
     }
   }
 </script>
