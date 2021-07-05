@@ -406,17 +406,23 @@ button:focus {
 
 .card .expand-container {
     position: absolute;
-    right: 18px;
     align-self: flex-start;
     justify-self: flex-start;
     display: flex;
-    margin-top: 18px;
+    height: 50px;
+    width: 100%;
 }
 
 .expand-icon {
     font-family: FontAwesome;
     color: gray;
     cursor: pointer;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    top: 0;
+    justify-content: flex-end;
 }
 
 .hidden-content {
@@ -442,6 +448,10 @@ button:focus {
 
 .expand-card~.expand-container label::before {
     content: '\f065';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
 }
 
 .expand-card:checked~.expand-container label::before {
