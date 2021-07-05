@@ -144,6 +144,10 @@ nav.side-menu li.active>a,
     margin-right: 5%;
 }
 
+.area > div {
+    padding-bottom: 5em;
+}
+
 .container {
     width: 100%;
     position: absolute;
