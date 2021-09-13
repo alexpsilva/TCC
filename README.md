@@ -8,6 +8,8 @@ Then, go to the project root and run `virtualenv .env` and activate it by runnin
 
 Now that you have a safe virtual environment set up, you can install the project dependencies by running `pip install -r requirements.txt`
 
+Last, you'll need to install Jekyll by running `gem install bundler jeykll` (if needed, more details on how to install Jekyll can be found [here](https://jekyllrb.com/docs/installation/))
+
 ## Process description
 In order to submit a process, you will need to describe it in a YML file. An example for it can be found [here](https://github.com/alexpsilva/TCC/blob/main/mock.yml)
 
@@ -28,7 +30,7 @@ To access the CLI, simply:
 
 ### API
 To host the API:
- - Go to the project root
+ - Go to the project root.
  - Make sure that the virtual environment is activated (if not, run `\.env\Scripts\activate.bat`)
  - Set the `FLASK_APP` environment variable by running `set FLASK_APP=flask.py`
  - Start the API's server by running `python -m flask run`

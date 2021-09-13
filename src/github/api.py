@@ -73,7 +73,7 @@ class GithubAPI:
     def add(self, path, content):
         blob = self.create_blob(content)
         
-        containing_folders = path.split('\\')
+        containing_folders = path.split('/')
         file_name = containing_folders.pop(-1)
 
         last_folder = self.staged_changes

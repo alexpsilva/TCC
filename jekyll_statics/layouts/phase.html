@@ -2,11 +2,11 @@
 layout: default
 ---
 
-<h1>Artifacts</h1>
+<h1>Phases</h1>
 
-<div id="artifacts">
-  {% for a in site.artifacts %}
-  <div class="card artifact {{a.pk}}">
+<div id="phases">
+  {% for a in site.phases %}
+  <div class="card phase {{a.pk}}">
     <input type="checkbox" id="{{ a.name }}-icon" class="expand-card">
     <div class="expand-container">
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
@@ -20,17 +20,13 @@ layout: default
         <div class="left-column">
           <span class="subtitle">Description</span>
           <p class="markdown-it text-block">{{ a.description }}</p>
-
-          <span class="subtitle">Optional?</span>
-          <p class="text-block">{{ a.optional }}</p>
         </div>
-
         <div class="right-column">
-          <span class="subtitle">Templates</span>
-          {% if a.templates != "" and a.templates != null %}
+          {% if a.activities != "" and a.activities != null %}
+          <span class="subtitle">Activities</span>
           <ul>
-            {% for template in a.templates %}
-            <li><a href="/template?filter={{template}}">{{template}}</a></li>
+            {% for activity in a.activities %}
+            <li><a href="/activity?filter={{activity[0]}}">{{activity[1]}}</a></li>
             {% endfor %}
           </ul>
           {% endif %}
@@ -48,7 +44,7 @@ layout: default
     const filters = myParam.split(",")
     filters.forEach(showFiltered)
   } else {
-    showFiltered("artifact")
+    showFiltered("phase")
   }
 
   function showFiltered(filter) {
@@ -56,6 +52,7 @@ layout: default
     for (var i of test) {
       i.style.display = "block"
     }
+
     if (document.querySelectorAll('.card[style*="display: block"]').length === 1) {
       document.querySelectorAll('.card[style*="display: block"] input')[0].checked = true;
     }

@@ -30,7 +30,7 @@ layout: default
             {% if a.tools != "" and a.tools != null %}
             <ul>
               {% for tool in a.tools %}
-              <li><a href="/tool?filter={{tool}}">{{tool}}</a></li>
+              <li><a href="/tool?filter={{tool[0]}}">{{tool[1]}}</a></li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -41,8 +41,8 @@ layout: default
             <ul>
               {% for required_artifact in a.required_artifacts %}
               <li>
-                <a href="/artifact?filter={{required_artifact}}"
-                  >{{required_artifact}}</a
+                <a href="/artifact?filter={{required_artifact[0]}}"
+                  >{{required_artifact[1]}}</a
                 >
               </li>
               {% endfor %}
@@ -55,8 +55,8 @@ layout: default
             <ul>
               {% for produced_artifact in a.produced_artifacts %}
               <li>
-                <a href="/artifact?filter={{produced_artifact}}"
-                  >{{produced_artifact}}</a
+                <a href="/artifact?filter={{produced_artifact[0]}}"
+                  >{{produced_artifact[1]}}</a
                 >
               </li>
               {% endfor %}
@@ -68,7 +68,7 @@ layout: default
             {% if a.templates != "" and a.templates != null %}
             <ul>
               {% for template in a.templates %}
-              <li><a href="/template?filter={{template}}">{{template}}</a></li>
+              <li><a href="/template?filter={{template[0]}}">{{template[1]}}</a></li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -82,7 +82,7 @@ layout: default
             <ul>
               {% for guideline in a.guidelines %}
               <li>
-                <a href="/guideline?filter={{guideline}}">{{guideline}}</a>
+                <a href="/guideline?filter={{guideline[0]}}">{{guideline[1]}}</a>
               </li>
               {% endfor %}
             </ul>
@@ -94,8 +94,8 @@ layout: default
             <ul>
               {% for participant_role in a.participant_roles %}
               <li>
-                <a href="/role?filter={{participant_role}}"
-                  >{{participant_role}}</a
+                <a href="/role?filter={{participant_role[0]}}"
+                  >{{participant_role[1]}}</a
                 >
               </li>
               {% endfor %}
@@ -108,8 +108,8 @@ layout: default
             <ul>
               {% for responsible_role in a.responsible_roles %}
               <li>
-                <a href="/role?filter={{responsible_role}}"
-                  >{{responsible_role}}</a
+                <a href="/role?filter={{responsible_role[0]}}"
+                  >{{responsible_role[1]}}</a
                 >
               </li>
               {% endfor %}
@@ -122,7 +122,7 @@ layout: default
             <ul>
               {% for sub_activity in a.sub_activities %}
               <li>
-                <a href="/activity?filter={{sub_activity}}">{{sub_activity}}</a>
+                <a href="/activity?filter={{sub_activity[0]}}">{{sub_activity[1]}}</a>
               </li>
               {% endfor %}
             </ul>

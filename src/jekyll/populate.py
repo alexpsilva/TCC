@@ -1,11 +1,23 @@
 from yaml import safe_load, YAMLError
 import shutil
 import os
+import re
 
 def populate_jekyll(process_description_path: str, project_path: str):
     jekyll_project_name = project_path.split('/')[-1]
     statics_base_path = 'jekyll_statics/'
     markdown_properties = ['description']
+    foreign_key_properties = {
+        'tools': 'tools',
+        'templates': 'templates',
+        'activities': 'activities',
+        'guidelines': 'guidelines',
+        'required_artifacts': 'artifacts',
+        'produced_artifacts': 'artifacts',
+        'participant_roles': 'roles',
+        'responsible_roles': 'roles',
+        'sub_activities': 'activities'
+    }
 
     files_to_copy = [
         'index.html', 
@@ -18,8 +30,8 @@ def populate_jekyll(process_description_path: str, project_path: str):
         'artifact.html'
     ]
     folders_to_copy = [
-        '_layouts', 
-        '_includes', 
+        'layouts', 
+        'includes', 
         'assets/css'
     ]
 
@@ -46,7 +58,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
 
     def create_collection(path, items, layout):
-        for identifier, properties in items.items():
+        for identifier, properties in items[layout].items():
             file_path = f'{path}/{identifier}.md'
             delete_file(file_path)
 
@@ -59,15 +71,19 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 for property, values in properties.items():
                     if values is None:
                         f.write(f'{property}:\n')
-                    elif isinstance(values, bool):
+                    elif property in markdown_properties:
+                        parsed_values = '  ' + values.replace('\n', '\n\n  ')
+                        f.write(f'{property}: >-\n{parsed_values}\n')
+                    elif property in foreign_key_properties:
+                        f.write(f'{property}:\n')
+                        referenced_entity = foreign_key_properties[property]
+                        for code in values:
+                            name = items.get(referenced_entity, {}).get(code, {}).get('name')
+                            if not name:
+                                raise ValueError(f'The {referenced_entity} {code} does not have a valid name')
+                            f.write(f'  {code}: "{name}"\n')
+                    elif isinstance(values, bool) or isinstance(values, str):
                         f.write(f'{property}: {values}\n')
-                    elif isinstance(values, str):
-                        f.write(f'{property}: ')
-                        if property in markdown_properties:
-                            parsed_values = '  ' + values.replace('\\n', '\n').replace('\n', '\n  ')
-                            f.write(f'>-\n{parsed_values}\n')
-                        else:
-                            f.write(f'{values}\n')
                     elif isinstance(values, list):
                         f.write(f'{property}:\n')
                         for value in values:
@@ -78,7 +94,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 f.write('---')
 
     def build_activity_graph(activities):
-        mermaid_string = '"graph TD\\n'
+        mermaid_string = '"graph TD/n'
         solo_activities = set(activities.keys())
 
         for id, activity in activities.items():
@@ -87,14 +103,14 @@ def populate_jekyll(process_description_path: str, project_path: str):
             if activity.get('predecessor') in activities:
                 predecessor_id = activity['predecessor']
                 predecessor_name = activities[predecessor_id]['name']
-                mermaid_string += f' {id}[{name}] --> {predecessor_id}[{predecessor_name}]\\n'
+                mermaid_string += f' {id}[{name}] --> {predecessor_id}[{predecessor_name}]/n'
 
                 if id in solo_activities:
                     solo_activities.remove(id)
         
         for id in solo_activities:
             name = activities[id]['name']
-            mermaid_string += f' {id}[{name}]\\n'
+            mermaid_string += f' {id}[{name}]/n'
         
         return mermaid_string + '"'
 
@@ -157,7 +173,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
         create_folder(project_path, collection_name)
 
         collection_path = f'{project_path}/{collection_name}'
-        create_collection(collection_path, raw_data[entity], entity)
+        create_collection(collection_path, raw_data, entity)
         print(f'Created {entity} collection successfully')
 
     # Fill _config.yml file
