@@ -96,7 +96,7 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
                 f.write('---')
 
     def build_activity_graph(activities):
-        mermaid_string = '"graph TD/n'
+        mermaid_string = '"graph TD\\n'
         solo_activities = set(activities.keys())
 
         for id, activity in activities.items():
@@ -105,14 +105,14 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
             if activity.get('predecessor') in activities:
                 predecessor_id = activity['predecessor']
                 predecessor_name = activities[predecessor_id]['name']
-                mermaid_string += f' {id}[{name}] --> {predecessor_id}[{predecessor_name}]/n'
+                mermaid_string += f' {id}[{name}] --> {predecessor_id}[{predecessor_name}]\\n'
 
                 if id in solo_activities:
                     solo_activities.remove(id)
         
         for id in solo_activities:
             name = activities[id]['name']
-            mermaid_string += f' {id}[{name}]/n'
+            mermaid_string += f' {id}[{name}]\\n'
         
         return mermaid_string + '"'
 
