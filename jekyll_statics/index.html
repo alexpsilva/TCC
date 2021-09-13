@@ -5,151 +5,119 @@
 layout: default
 ---
 
-<div class="container">
+<div class="container justifyFlexStart">
   <div>
     {% assign process = site.process | first %}
     <h2>{{ site.process_name }}</h2>
 
-    <p>
-      {{ site.process_description }}
-    </p>
+    <p>{{ site.process_description }}</p>
   </div>
   <div id="index-menu">
-    <ul class="auto-grid">
-      <li>
+    <div class="auto-grid">
+      <div>
         <a href="/phases">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Phases
-              </div>
-              <div class="menu-count">
-                {{site.phases.size}}
-              </div>
+              <div class="menu-text">Phases</div>
+              <div class="menu-count">{{site.phases.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-calendar fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/activities">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Activities
-              </div>
-              <div class="nav-text">
-                {{site.activities.size}}
-              </div>
+              <div class="menu-text">Activities</div>
+              <div class="nav-text">{{site.activities.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-bolt fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/artifacts">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Artifacts
-              </div>
-              <div class="nav-text">
-                {{site.artifacts.size}}
-              </div>
+              <div class="menu-text">Artifacts</div>
+              <div class="nav-text">{{site.artifacts.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-trophy fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/tools">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Tools
-              </div>
-              <div class="nav-text">
-                {{site.tools.size}}
-              </div>
+              <div class="menu-text">Tools</div>
+              <div class="nav-text">{{site.tools.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-gavel fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/guidelines">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Guidelines
-              </div>
-              <div class="nav-text">
-                {{site.guidelines.size}}
-              </div>
+              <div class="menu-text">Guidelines</div>
+              <div class="nav-text">{{site.guidelines.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-list-ol fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/roles">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Roles
-              </div>
-              <div class="nav-text">
-                {{site.roles.size}}
-              </div>
+              <div class="menu-text">Roles</div>
+              <div class="nav-text">{{site.roles.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-user fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="/templates">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Templates
-              </div>
-              <div class="nav-text">
-                {{site.templates.size}}
-              </div>
+              <div class="menu-text">Templates</div>
+              <div class="nav-text">{{site.templates.size}}</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-file-text-o fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-      <li>
+      </div>
+      <div>
         <a href="https://github.com/alexpsilva/TCC">
           <div class="menu-item">
             <div class="text-container">
-              <div class="menu-text">
-                Github
-              </div>
+              <div class="menu-text">Github</div>
             </div>
             <div class="menu-icon">
               <i class="fa fa-github fa-3x"></i>
             </div>
           </div>
         </a>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
-
+  <!-- <div class="mermaid">{{ site.activity_graph }}</div> -->
 </div>
