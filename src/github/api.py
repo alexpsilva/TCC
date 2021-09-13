@@ -58,10 +58,10 @@ class GithubAPI:
     def post(self, endpoint: str, body: JSON) -> JSON:
         return self._request(endpoint, requests.post, body)
 
-    def create_blob(self, content: str) -> GithubElement:
+    def create_blob(self, content: str, encoding: str = 'utf8') -> GithubElement:
         return cast(GithubElement, self.post(
             f'/repos/{self.user}/{self.repo}/git/blobs', 
-            { 'content': content }
+            { 'content': content, 'encoding': encoding }
         ))
     
     def create_tree(self, content: List[Tree]) -> GithubElement:
@@ -70,8 +70,8 @@ class GithubAPI:
             { 'tree': cast(List[JSON], content) }
         ))
 
-    def add(self, path, content):
-        blob = self.create_blob(content)
+    def add(self, path: str, content: str, encoding: str = 'utf8'):
+        blob = self.create_blob(content, encoding)
         
         containing_folders = path.split('/')
         file_name = containing_folders.pop(-1)

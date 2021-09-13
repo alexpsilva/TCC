@@ -1,11 +1,13 @@
 from yaml import safe_load, YAMLError
+from typing import List
 import shutil
 import os
 import re
 
-def populate_jekyll(process_description_path: str, project_path: str):
+def populate_jekyll(process_description_path: str, project_path: str, additional_paths: List[str] = []):
     jekyll_project_name = project_path.split('/')[-1]
     statics_base_path = 'jekyll_statics/'
+    uploads_folder_name = 'uploads'
     markdown_properties = ['description']
     foreign_key_properties = {
         'tools': 'tools',
@@ -127,7 +129,7 @@ def populate_jekyll(process_description_path: str, project_path: str):
                 f.write(f'    output: true\n')
 
     def copy_statics_to_project(dest_path, files, folders):
-        statics_dir = os.getcwd() + f'/{statics_base_path}' # TO-DO: Change this to not use the current dir
+        statics_dir = os.getcwd() + f'/{statics_base_path}'
         create_folder(dest_path, 'assets')
 
         for file in files:
@@ -140,6 +142,14 @@ def populate_jekyll(process_description_path: str, project_path: str):
             for _, _, folder_files in os.walk(f'{statics_dir}/{folder}'):
                 for file in folder_files:
                     shutil.copyfile(f'{statics_dir}/{folder}/{file}', f'{dest_path}/{folder}/{file}')
+    
+    def copy_additional_files(dest_path: str, original_paths: List[str]):
+        create_folder(dest_path, uploads_folder_name)
+
+        for original_path in original_paths:
+            file = original_path.split('/')[-1]
+            delete_file(f'{dest_path}/{uploads_folder_name}/{file}')
+            shutil.copyfile(original_path, f'{dest_path}/{uploads_folder_name}/{file}')
 
     jekyll_global_variables = {}
 
@@ -183,3 +193,6 @@ def populate_jekyll(process_description_path: str, project_path: str):
 
     # Copy static files
     copy_statics_to_project(project_path, files_to_copy, folders_to_copy)
+
+    # Copy additional files
+    copy_additional_files(project_path, additional_paths)

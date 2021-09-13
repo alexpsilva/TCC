@@ -34,8 +34,12 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
     # Commit and push project files
     git = GithubAPI(user, token)
     for absolute_path in files_to_commit:
-        with open(absolute_path, 'r', encoding='utf8') as file:
-            data = file.read()
+        try:
+            with open(absolute_path, 'r') as file:
+                data = file.read()
+        except UnicodeDecodeError:
+            print(f'The file {absolute_path} could not be decoded with UTF-8 and, therefore, was not uploaded')
+            continue
 
         relative_path = absolute_path.replace(project_path + '/', '')
         print(f'Staging {relative_path} for commit')
