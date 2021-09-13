@@ -14,6 +14,15 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
             if ignore_path in path:
                 return True
         return False
+    
+    def read_file_contents(path: str) -> str:
+        try:
+            with open(path, 'r') as contents:
+                return contents.read()
+        except:
+            print(f'File {path} is not UTF-8 encoded. Trying to read binary')
+            with open(path, 'rb') as binary_contents:
+                return str(binary_contents.read())
 
     # Scan through the project, fetching files to be commited
     dirs_to_walk = [project_path]
@@ -35,10 +44,9 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
     git = GithubAPI(user, token)
     for absolute_path in files_to_commit:
         try:
-            with open(absolute_path, 'r') as file:
-                data = file.read()
-        except UnicodeDecodeError:
-            print(f'The file {absolute_path} could not be decoded with UTF-8 and, therefore, was not uploaded')
+            data = read_file_contents(absolute_path)
+        except:
+            print(f'The file {absolute_path} could not be decoded and, therefore, was not uploaded')
             continue
 
         relative_path = absolute_path.replace(project_path + '/', '')

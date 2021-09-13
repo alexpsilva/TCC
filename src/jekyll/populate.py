@@ -32,8 +32,8 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
         'artifact.html'
     ]
     folders_to_copy = [
-        'layouts', 
-        'includes', 
+        '_layouts', 
+        '_includes', 
         'assets/css'
     ]
 
@@ -85,11 +85,11 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
                                 raise ValueError(f'The {referenced_entity} {code} does not have a valid name')
                             f.write(f'  {code}: "{name}"\n')
                     elif isinstance(values, bool) or isinstance(values, str):
-                        f.write(f'{property}: {values}\n')
+                        f.write(f'{property}: "{values}"\n')
                     elif isinstance(values, list):
                         f.write(f'{property}:\n')
                         for value in values:
-                            f.write(f'  - {value}\n')
+                            f.write(f'  - "{value}"\n')
                     else:
                         raise TypeError(f'"{values}" is not a valid value for the "{property}" property')
 
