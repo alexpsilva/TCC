@@ -12,25 +12,23 @@ layout: default
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
     </div>
     <div class="card-content">
-      <div class="title-row">
-        <span class="title">
-          <h2>{{ a.name }}</h2>
-        </span>
-        <div class="hidden-content">
-          <div class="left-column">
-            <span class="subtitle">Description</span>
-            <p class="markdown-it text-block">{{ a.description }}</p>
-          </div>
-          <div class="right-column">
-            <span class="subtitle">Used in</span>
-            {% if a.activities != "" and a.activities != null %}
-            <ul>
-              {% for activity in a.activities %}
-              <li><a href="/activity?filter={{activity[0]}}">{{activity[1]}}</a></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
+      <span class="title">
+        <h2>{{ a.name }}</h2>
+      </span>
+      <div class="hidden-content">
+        <div class="left-column">
+          <span class="subtitle">Description</span>
+          <p class="markdown-it text-block">{{ a.description }}</p>
+        </div>
+        <div class="right-column">
+          {% if a.activities != "" and a.activities != null %}
+          <span class="subtitle">Used in</span>
+          <ul>
+            {% for activity in a.activities %}
+            <li><a href="/activities?filter={{activity[0]}}">{{activity[1]}}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </div>
       </div>
     </div>

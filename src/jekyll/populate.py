@@ -23,13 +23,13 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
 
     files_to_copy = [
         'index.html', 
-        'phase.html', 
-        'guideline.html', 
-        'activity.html', 
-        'template.html', 
-        'role.html', 
-        'tool.html', 
-        'artifact.html'
+        'phases.html', 
+        'guidelines.html', 
+        'activities.html', 
+        'templates.html', 
+        'roles.html', 
+        'tools.html', 
+        'artifacts.html'
     ]
     folders_to_copy = [
         '_layouts', 
