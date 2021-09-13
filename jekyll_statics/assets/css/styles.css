@@ -452,7 +452,8 @@ button:focus {
 .artifact .card-content,
 .tool .card-content,
 .guideline .card-content,
-.template .card-content {
+.template .card-content,
+.role .card-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -490,7 +491,8 @@ button:focus {
 }
 
 .phase .expand-card:checked~.card-content .hidden-content,
-.artifact .expand-card:checked~.card-content .hidden-content {
+.artifact .expand-card:checked~.card-content .hidden-content,
+.role .expand-card:checked~.card-content .hidden-content {
     display: flex;
     margin-top: 1em;
 }
