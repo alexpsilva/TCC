@@ -1,48 +1,62 @@
 <html>
-
-<head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
-</head>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
 
-<body>
+  <body>
     {% include navbar.html %}
-    <div class="area">
-        {{ content }}
-    </div>
-    {% include sideMenu.html %}
-    {% include footer.html %}
-</body>
+    <div class="area">{{ content }}</div>
+    {% include sideMenu.html %} {% include footer.html %}
+  </body>
 
-<script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"
+    integrity="sha512-7U8vY7c6UQpBNQOnBg3xKX502NAckvk70H1nWvh6W7izA489jEz+RCN3ntT1VMdXewaSKkOrEBegp/h6SPXrjw=="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
     function toggleSidebar() {
-        const toggleClass = (el, className) => el.classList.toggle(className);
-        toggleClass(document.querySelector('.side-menu'), 'expanded'); // The div container will not have the 'active' class anymore
+      const toggleClass = (el, className) => el.classList.toggle(className);
+      toggleClass(document.querySelector(".side-menu"), "expanded"); // The div container will not have the 'active' class anymore
     }
 
     window.onload = function () {
+      var mdIt = window.markdownit({
+        html: true,
+        xhtmlOut: true,
+        breaks: false,
+        linkify: true,
+        typographer: true,
+      });
+      mdIt.renderer.rules.table_open = function () {
+        return '<table class="table table-striped">\n';
+      };
+      var mds = document.querySelectorAll(".markdown-it");
+      mds.forEach((mdElement) => {
+        var mdElementString = mdIt.render(mdElement.innerText);
+        mdElement.innerHTML = mdElementString;
+      });
+    };
 
-        var mdIt = window.markdownit({
-            html: true,
-            xhtmlOut: true,
-            breaks: false,
-            linkify: true,
-            typographer: true
+    window.addEventListener("load", function () {
+      var svgs = d3.selectAll(".mermaid svg");
+      svgs.each(function () {
+        var svg = d3.select(this);
+        svg.html("<g>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function (event) {
+          inner.attr("transform", event.transform);
         });
-        mdIt.renderer.rules.table_open = function () { 
-            return '<table class="table table-striped">\n'; 
-        }; 
-        var mds = document.querySelectorAll(".markdown-it");
-        mds.forEach(mdElement => {
-            var mdElementString = mdIt.render(mdElement.innerText);
-            mdElement.innerHTML = mdElementString;
-        });
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"
-    integrity="sha512-7U8vY7c6UQpBNQOnBg3xKX502NAckvk70H1nWvh6W7izA489jEz+RCN3ntT1VMdXewaSKkOrEBegp/h6SPXrjw=="
-    crossorigin="anonymous"></script>
-
+        svg.call(zoom);
+      });
+    });
+  </script>
 </html>

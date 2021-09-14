@@ -5,7 +5,7 @@
 layout: default
 ---
 
-<div class="container justifyFlexStart">
+<div class="container justifyFlexStart" id="home">
   <div>
     {% assign process = site.process | first %}
     <h2>{{ site.process_name }}</h2>
@@ -106,6 +106,18 @@ layout: default
         </a>
       </div>
       <div>
+        <a href="/workflow">
+          <div class="menu-item">
+            <div class="text-container">
+              <div class="menu-text">Workflow</div>
+            </div>
+            <div class="menu-icon">
+              <i class="fa fa-sitemap fa-3x"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div>
         <a href="https://github.com/alexpsilva/TCC">
           <div class="menu-item">
             <div class="text-container">
@@ -119,5 +131,4 @@ layout: default
       </div>
     </div>
   </div>
-  <!-- <div class="mermaid">{{ site.activity_graph }}</div> -->
 </div>

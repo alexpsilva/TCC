@@ -148,6 +148,18 @@ nav.side-menu li.active>a,
     padding-bottom: 5em;
 }
 
+.area > .container {
+    max-width: 1800px;
+}
+
+#home .auto-grid > div a {
+    height: auto;
+}
+
+#home .auto-grid > div {
+    max-width: 300px;
+}
+
 .container {
     width: 100%;
     position: absolute;
@@ -535,12 +547,14 @@ button:focus {
 }
 
 .mermaid {
-    min-width: 700px;
+    overflow: hidden;
+    max-height: 800px;
     margin-bottom: 3em;
 }
 
 .mermaid > svg {
     margin: 3em;
+    height: 100%;
 }
 
 @media (max-width: 800px) {

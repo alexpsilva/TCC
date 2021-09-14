@@ -1,0 +1,10 @@
+---
+layout: default
+---
+
+<h1>Workflow</h1>
+
+<div id="workflow">
+  {% assign process = site.process | first %}
+  <div class="mermaid">{{ site.activity_graph }}</div>
+</div>

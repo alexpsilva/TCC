@@ -29,7 +29,8 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
         'templates.html', 
         'roles.html', 
         'tools.html', 
-        'artifacts.html'
+        'artifacts.html',
+        'workflow.html'
     ]
     folders_to_copy = [
         '_layouts', 
