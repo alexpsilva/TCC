@@ -12,11 +12,12 @@ layout: default
       <label for="{{ a.name }}-icon" class="expand-icon"></label>
     </div>
     <div class="card-content">
-      <div class="title-row">
-        <span class="title">
-          <h2>{{ a.name }}</h2>
-        </span>
-      </div>
+      <span class="title">
+        <h2>{{ a.name }}</h2>
+        <a href="/guidelines?filter={{a.pk}}" class="iconLink">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
+      </span>
       <div class="hidden-content">
         <span class="subtitle">Description</span>
         <p class="markdown-it text-block">{{ a.description }}</p>

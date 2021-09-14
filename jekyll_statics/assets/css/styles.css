@@ -420,9 +420,23 @@ button:focus {
     text-decoration: none;
 }
 
-.card-content a.title {
+.card-content > .title {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5em;
+}
+
+.card-content > .title > a {
     text-decoration: none;
-    color: black;
+    color: grey;
+    padding-top: 1px;
+}
+
+.card-content > .title > a > i.fa {
+    font-size: 15px;
+    width: auto;
+    padding-left: 10px;
 }
 
 .right-column ul a {
@@ -531,7 +545,6 @@ button:focus {
 
 .card-content h2 {
     margin: 0px;
-    padding-top: 0.5em;
 }
 
 .index-content {
