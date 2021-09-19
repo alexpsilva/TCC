@@ -2,7 +2,6 @@ from yaml import safe_load, YAMLError
 from typing import List
 import shutil
 import os
-import re
 
 def populate_jekyll(process_description_path: str, project_path: str, additional_paths: List[str] = []):
     jekyll_project_name = project_path.split('/')[-1]
@@ -14,6 +13,7 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
         'templates': 'templates',
         'activities': 'activities',
         'guidelines': 'guidelines',
+        'artifacts': 'artifacts',
         'required_artifacts': 'artifacts',
         'produced_artifacts': 'artifacts',
         'participant_roles': 'roles',
@@ -59,6 +59,26 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
                     continue
                 
                 raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
+                
+    def enrich_guideline_data(raw_data):
+        # Add the 'activities that reference it' for each guideline
+        for activity_id, activity in raw_data['activities'].items():
+            activity_guidelines = activity.get('guidelines') or []
+            for guideline_id in activity_guidelines:
+                if guideline_id not in raw_data.get('guidelines', []):
+                    continue
+                
+                raw_data['guidelines'][guideline_id].setdefault('activities', []).append(activity_id)
+                
+    def enrich_template_data(raw_data):
+        # Add the 'artifacts that reference it' for each template
+        for artifact_id, artifact in raw_data['artifacts'].items():
+            artifact_templates = artifact.get('templates') or []
+            for template_id in artifact_templates:
+                if template_id not in raw_data.get('templates', []):
+                    continue
+                
+                raw_data['templates'][template_id].setdefault('artifacts', []).append(artifact_id)
 
     def create_collection(path, items, layout):
         for identifier, properties in items[layout].items():
@@ -178,6 +198,8 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
 
     # Create collections
     enrich_role_data(raw_data)
+    enrich_guideline_data(raw_data)
+    enrich_template_data(raw_data)
     entities = raw_data.keys()
     for entity in entities:
         collection_name = f'_{entity}'

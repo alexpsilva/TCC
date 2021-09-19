@@ -518,6 +518,8 @@ button:focus {
 
 .phase .expand-card:checked~.card-content .hidden-content,
 .artifact .expand-card:checked~.card-content .hidden-content,
+.template .expand-card:checked~.card-content .hidden-content,
+.guideline .expand-card:checked~.card-content .hidden-content,
 .role .expand-card:checked~.card-content .hidden-content {
     display: flex;
     margin-top: 1em;
