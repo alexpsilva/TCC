@@ -14,6 +14,8 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
         'activities': 'activities',
         'guidelines': 'guidelines',
         'artifacts': 'artifacts',
+        'participated_activities': 'activities',
+        'required_activities': 'activities',
         'required_artifacts': 'artifacts',
         'produced_artifacts': 'artifacts',
         'participant_roles': 'roles',
@@ -53,12 +55,19 @@ def populate_jekyll(process_description_path: str, project_path: str, additional
     def enrich_role_data(raw_data):
         # Add the 'activities that reference it' for each role
         for activity_id, activity in raw_data['activities'].items():
-            activity_roles = (activity.get('participant_roles') or []) + (activity.get('responsible_roles') or [])
+            activity_roles = activity.get('participant_roles') or []
             for role_id in activity_roles:
                 if role_id not in raw_data.get('roles', []):
                     continue
                 
-                raw_data['roles'][role_id].setdefault('activities', []).append(activity_id)
+                raw_data['roles'][role_id].setdefault('participated_activities', []).append(activity_id)
+
+            activity_roles = activity.get('responsible_roles') or []
+            for role_id in activity_roles:
+                if role_id not in raw_data.get('roles', []):
+                    continue
+                
+                raw_data['roles'][role_id].setdefault('required_activities', []).append(activity_id)
                 
     def enrich_guideline_data(raw_data):
         # Add the 'activities that reference it' for each guideline

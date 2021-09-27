@@ -19,19 +19,31 @@ layout: default
         </a>
       </span>
       <div class="hidden-content">
-        <div class="left-column">
-          <span class="subtitle">Description</span>
-          <p class="markdown-it text-block">{{ a.description }}</p>
-        </div>
-        <div class="right-column">
-          {% if a.activities != "" and a.activities != null %}
-          <span class="subtitle">Used in</span>
-          <ul>
-            {% for activity in a.activities %}
-            <li><a href="/activities?filter={{activity[0]}}">{{activity[1]}}</a></li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+        <div class="card-row">
+          <div class="left-column">
+            <span class="subtitle">Description</span>
+            <p class="markdown-it text-block">{{ a.description }}</p>
+          </div>
+          <div class="right-column">
+            {% if a.participated_activities != "" and a.participated_activities != null %}
+            <span class="subtitle">Participant in</span>
+            <ul>
+              {% for activity in a.participated_activities %}
+              <li><a href="/activities?filter={{activity[0]}}">{{activity[1]}}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="right-column">
+            {% if a.required_activities != "" and a.required_activities != null %}
+            <span class="subtitle">Responsible by</span>
+            <ul>
+              {% for activity in a.required_activities %}
+              <li><a href="/activities?filter={{activity[0]}}">{{activity[1]}}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
