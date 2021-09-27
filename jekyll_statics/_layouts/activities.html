@@ -29,16 +29,6 @@ layout: default
 
         <div class="card-row">
           <div class="right-column">
-            <span class="subtitle">Tools</span>
-            {% if a.tools != "" and a.tools != null %}
-            <ul>
-              {% for tool in a.tools %}
-              <li><a href="/tools?filter={{tool[0]}}">{{tool[1]}}</a></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <div class="right-column">
             <span class="subtitle">Required Artifact</span>
             {% if a.required_artifacts != "" and a.required_artifacts != null %}
             <ul>
@@ -60,35 +50,6 @@ layout: default
               <li>
                 <a href="/artifacts?filter={{produced_artifact[0]}}"
                   >{{produced_artifact[1]}}</a
-                >
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <div class="right-column">
-            <span class="subtitle">Templates</span>
-            {% if a.templates != "" and a.templates != null %}
-            <ul>
-              {% for template in a.templates %}
-              <li>
-                <a href="/templates?filter={{template[0]}}">{{template[1]}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="card-row">
-          <div class="right-column">
-            <span class="subtitle">Guidelines</span>
-            {% if a.guidelines != "" and a.guidelines != null %}
-            <ul>
-              {% for guideline in a.guidelines %}
-              <li>
-                <a href="/guidelines?filter={{guideline[0]}}"
-                  >{{guideline[1]}}</a
                 >
               </li>
               {% endfor %}
@@ -123,6 +84,9 @@ layout: default
             </ul>
             {% endif %}
           </div>
+        </div>
+
+        <div class="card-row">
           <div class="right-column">
             <span class="subtitle">Sub Activities</span>
             {% if a.sub_activities != "" and a.sub_activities != null %}
@@ -137,6 +101,31 @@ layout: default
             </ul>
             {% endif %}
           </div>
+          <div class="right-column">
+            <span class="subtitle">Tools</span>
+            {% if a.tools != "" and a.tools != null %}
+            <ul>
+              {% for tool in a.tools %}
+              <li><a href="/tools?filter={{tool[0]}}">{{tool[1]}}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="right-column">
+            <span class="subtitle">Guidelines</span>
+            {% if a.guidelines != "" and a.guidelines != null %}
+            <ul>
+              {% for guideline in a.guidelines %}
+              <li>
+                <a href="/guidelines?filter={{guideline[0]}}"
+                  >{{guideline[1]}}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="right-column"></div>
         </div>
       </div>
     </div>
