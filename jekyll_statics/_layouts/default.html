@@ -41,7 +41,7 @@
       };
       var mds = document.querySelectorAll(".markdown-it");
       mds.forEach((mdElement) => {
-        var mdElementString = mdIt.render(mdElement.innerText);
+        var mdElementString = mdIt.render(String(mdElement.innerHTML));
         mdElement.innerHTML = mdElementString;
       });
     };
