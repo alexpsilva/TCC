@@ -1,4 +1,5 @@
 from .api import GithubAPI
+import base64
 import os
 
 def deploy_to_github(project_path: str, user: str, token: str) -> None:
@@ -15,18 +16,13 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
                 return True
         return False
     
-    def read_file_contents(path: str) -> str:
-        try:
-            with open(path, 'r') as contents:
-                return contents.read()
-        except:
-            print(f'File {path} is not UTF-8 encoded. Trying to read binary')
-            with open(path, 'rb') as binary_contents:
-                return str(binary_contents.read())
+    def read_file_contents(path: str) -> bytes:
+        with open(path, "rb") as binary_contents:
+            return base64.b64encode(binary_contents.read())
 
     # Scan through the project, fetching files to be commited
     dirs_to_walk = [project_path]
-    files_to_commit = []
+    files_to_commit = set()
     while dirs_to_walk:
         root = dirs_to_walk.pop(0)
         for root, dirs, files in os.walk(root):
@@ -38,7 +34,7 @@ def deploy_to_github(project_path: str, user: str, token: str) -> None:
             for file in files:
                 full_path = f'{root}/{file}'
                 if not should_ignore(full_path):
-                    files_to_commit.append(full_path)
+                    files_to_commit.add(full_path)
 
     # Commit and push project files
     git = GithubAPI(user, token)
