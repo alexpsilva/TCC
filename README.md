@@ -23,10 +23,11 @@ There are two ways to run the project: By hosting an API, that listens to HTTP r
 To access the CLI, simply:
  - Go to the project root
  - Make sure that the virtual environment is activated (if not, run `\.env\Scripts\activate.bat`)
- - Run `python cli.py <file_path> <github_user> <github_token>` replacing parameters between `<>` as follows: 
+ - Run `python cli.py <file_path> <github_user> <github_token> -u <file_path_1> <file_path_2>` replacing parameters between `<>` as follows: 
  - `file_path`: The path to the YML that should be loaded
  - `github_user`: The Github username for which the project should be deployed
  - `github_token`: The Github personal access token generated through the `Github setup` section 
+ - (optional) `-u` flag followed by any number of file paths. Theese will be uploaded in the project's `/uploads` folder and may be referenced throughout the process description
 
 ### API
 To host the API:
