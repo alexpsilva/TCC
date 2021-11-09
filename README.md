@@ -33,7 +33,7 @@ To access the CLI, simply:
 To host the API:
  - Go to the project root.
  - Make sure that the virtual environment is activated (if not, run `\.env\Scripts\activate.bat`)
- - Set the `FLASK_APP` environment variable by running `set FLASK_APP=flask.py`
+ - Set the `FLASK_APP` environment variable by running `set FLASK_APP=api.py`
  - Start the API's server by running `python -m flask run`
 
 Now that you have the API up and running, make a POST to the `/upload` endpoint. The request must contain a `form-data` payload containing the following keys:
