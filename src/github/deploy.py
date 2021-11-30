@@ -4,15 +4,20 @@ import os
 
 def deploy_to_github(project_path: str, user: str, token: str) -> None:
     ignore_list = [
-        f'{project_path}/.git',
-        f'{project_path}/.jekyll-cache',
-        f'{project_path}/_site',
-        f'{project_path}/_temp_jekyl_project'
+        '.git',
+        '.jekyll-cache',
+        '_site',
+        '_temp_jekyl_project'
     ]
 
     def should_ignore(path):
+        relative_path = path.replace(project_path + '/', '')
+        if len(relative_path) == 0 or relative_path[0] == '.':
+            # Ignore hidden folders
+            return True
+
         for ignore_path in ignore_list:
-            if ignore_path in path:
+            if ignore_path in relative_path:
                 return True
         return False
     
